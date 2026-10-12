@@ -28,6 +28,8 @@
 html, body { height: 100%; }
 body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 14px; line-height: 1.5; }
 .app { display: grid; grid-template-columns: minmax(0, 1fr) 330px; height: 100%; }
+.app.noAside { grid-template-columns: 1fr; }
+.app.noAside aside { display: none; }
 .view { position: relative; min-width: 0; overflow: hidden; }
 #c { display: block; width: 100%; height: 100%; touch-action: none; }
 .labels { position: absolute; inset: 0; pointer-events: none; }
@@ -41,6 +43,12 @@ body { background: var(--bg); color: var(--fg); font-family: var(--font-body); f
   position: absolute; left: 16px; bottom: 14px; font-size: 12px; color: #f2f2f0;
   background: rgba(20, 22, 24, .6); padding: 4px 10px; border-radius: 4px;
 }
+.navToggle {
+  position: absolute; top: 14px; right: 16px; width: 34px; height: 34px; z-index: 5;
+  display: grid; place-items: center; border-radius: 8px; border: none; cursor: pointer;
+  background: rgba(20, 22, 24, .6); color: #f2f2f0; font-size: 15px; line-height: 1;
+}
+.navToggle:hover { background: rgba(20, 22, 24, .8); }
 aside {
   background: var(--panel); border-left: 1px solid var(--line); overflow-y: auto;
   padding: 22px 20px 28px; display: flex; flex-direction: column; gap: 22px;
@@ -51,6 +59,13 @@ h2 {
   margin: 0 0 10px; font-size: 11px; font-weight: 600; text-transform: uppercase;
   letter-spacing: .09em; color: var(--muted);
 }
+.h2-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0 0 10px; }
+.h2-row h2 { margin: 0; }
+.collapseBtn {
+  width: 24px; height: 24px; padding: 0; display: grid; place-items: center; flex: none;
+  background: transparent; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); font-size: 12px;
+}
+#colorBody.collapsed { display: none; }
 .seg { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 .btns { display: flex; flex-wrap: wrap; gap: 6px; }
 button {
@@ -87,6 +102,7 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
 .toggle { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-top: 10px; }
 @media (max-width: 760px) {
   .app { grid-template-columns: 1fr; grid-template-rows: 62vh auto; height: auto; }
+  .app.noAside { grid-template-rows: 100vh; height: 100vh; }
   html, body { height: auto; }
   aside { border-left: 0; border-top: 1px solid var(--line); padding: 20px 16px 28px; overflow: visible; }
 }
@@ -97,6 +113,7 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
     <canvas id="c" aria-label="Mô hình 3D phòng ngủ"></canvas>
     <div class="labels" id="labels"></div>
     <div class="hint">Kéo để xoay · cuộn để phóng to · chuột phải để dời</div>
+    <button class="navToggle" id="navToggle" type="button" aria-expanded="true" title="Ẩn/hiện bảng điều khiển">✕</button>
   </div>
   <aside>
     <header>
@@ -105,18 +122,23 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
     </header>
 
     <section>
-      <h2>Bảng màu</h2>
-      <div class="seg" role="group" aria-label="Bảng màu">
-        <button id="p-light" aria-pressed="true">Bản sáng</button>
-        <button id="p-dark" aria-pressed="false">Bản tối</button>
+      <div class="h2-row">
+        <h2>Bảng màu</h2>
+        <button class="collapseBtn" id="toggleColors" type="button" aria-expanded="true" aria-controls="colorBody" title="Thu gọn / mở rộng">▾</button>
       </div>
-      <ul class="targets" id="targets"></ul>
-      <div class="picker">
-        <div class="picker-head"><span id="pickTitle">Tủ áo · cánh</span><button class="linkbtn" id="resetColors">Khôi phục màu gốc</button></div>
-        <div class="presets" id="presets"></div>
-        <label class="custom" for="customColor"><input type="color" id="customColor" value="#d8c8af"> Chọn màu bất kỳ</label>
+      <div id="colorBody">
+        <div class="seg" role="group" aria-label="Bảng màu">
+          <button id="p-light" aria-pressed="true">Bản sáng</button>
+          <button id="p-dark" aria-pressed="false">Bản tối</button>
+        </div>
+        <ul class="targets" id="targets"></ul>
+        <div class="picker">
+          <div class="picker-head"><span id="pickTitle">Tủ áo · cánh</span><button class="linkbtn" id="resetColors">Khôi phục màu gốc</button></div>
+          <div class="presets" id="presets"></div>
+          <label class="custom" for="customColor"><input type="color" id="customColor" value="#d8c8af"> Chọn màu bất kỳ</label>
+        </div>
+        <p class="note">Bấm một món trong danh sách rồi chọn màu. Đổi bản sáng/tối sẽ đưa mọi màu về bộ màu của bản đó.</p>
       </div>
-      <p class="note">Bấm một món trong danh sách rồi chọn màu. Đổi bản sáng/tối sẽ đưa mọi màu về bộ màu của bản đó.</p>
     </section>
 
     <section>
@@ -624,6 +646,36 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
   let startPalette = "light";
   try { if (localStorage.getItem("phong-palette") === "dark") startPalette = "dark"; } catch (e) {}
   applyPalette(startPalette);
+
+  // ---------- hide/show the whole side panel (handy on phones) ----------
+  const appEl = document.querySelector(".app");
+  const navToggle = document.getElementById("navToggle");
+  function setAsideHidden(hidden) {
+    appEl.classList.toggle("noAside", hidden);
+    navToggle.setAttribute("aria-expanded", String(!hidden));
+    navToggle.textContent = hidden ? "☰" : "✕";
+    navToggle.title = hidden ? "Hiện bảng điều khiển" : "Ẩn bảng điều khiển";
+    try { localStorage.setItem("phong-asideHidden", hidden ? "1" : "0"); } catch (e) {}
+    resize();
+  }
+  navToggle.addEventListener("click", () => setAsideHidden(!appEl.classList.contains("noAside")));
+  let startAsideHidden = false;
+  try { startAsideHidden = localStorage.getItem("phong-asideHidden") === "1"; } catch (e) {}
+  setAsideHidden(startAsideHidden);
+
+  // ---------- collapse the color panel (handy on phones) ----------
+  const toggleColors = document.getElementById("toggleColors");
+  const colorBody = document.getElementById("colorBody");
+  function setColorsCollapsed(collapsed) {
+    colorBody.classList.toggle("collapsed", collapsed);
+    toggleColors.setAttribute("aria-expanded", String(!collapsed));
+    toggleColors.textContent = collapsed ? "▸" : "▾";
+    try { localStorage.setItem("phong-colorsCollapsed", collapsed ? "1" : "0"); } catch (e) {}
+  }
+  toggleColors.addEventListener("click", () => setColorsCollapsed(!colorBody.classList.contains("collapsed")));
+  let startCollapsed = false;
+  try { startCollapsed = localStorage.getItem("phong-colorsCollapsed") === "1"; } catch (e) {}
+  setColorsCollapsed(startCollapsed);
 
   // ---------- views ----------
   const VIEWS = [

@@ -343,6 +343,21 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
     m.castShadow = true; m.receiveShadow = true;
     (parent || furn).add(m); return m;
   }
+  // like B(), but the (x0, z1) corner — the one jutting furthest into the room — is rounded off
+  function BR(x0, x1, y0, y1, z0, z1, r, mat, parent) {
+    const shp = new THREE.Shape();
+    shp.moveTo(x1, -z0);
+    shp.lineTo(x1, -z1);
+    shp.lineTo(x0 + r, -z1);
+    shp.absarc(x0 + r, -(z1 - r), r, 1.5 * Math.PI, Math.PI, true);
+    shp.lineTo(x0, -z0);
+    shp.closePath();
+    const geo = new THREE.ExtrudeGeometry(shp, { depth: y1 - y0, bevelEnabled: false, curveSegments: 16 });
+    geo.rotateX(-Math.PI / 2);
+    const m = new THREE.Mesh(geo, mat); m.position.y = y0;
+    m.castShadow = true; m.receiveShadow = true;
+    (parent || furn).add(m); return m;
+  }
   function books(x0, x1, y, z0, z1, alongZ, seed) {
     const r = rnd(seed); let p = alongZ ? z0 : x0; const end = alongZ ? z1 : x1;
     while (p < end - 0.03) {
@@ -484,7 +499,7 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
   B(SHX0 + 0.01, SHX0 + 0.03, counterY, 1.52, 0.01, DD - 0.02, M.dSecond);      // side upright, open (computer-desk) face
   books(SHX0 + 0.05, SHX1 - 0.03, counterY, 0.03, 0.16, false, 21);
   // small open corner shelf nook over the computer desk, like the sample photo's wall shelving
-  [[1.0, DD - 0.02], [1.22, DD - 0.1]].forEach(([y, d]) => B(CX0 - 0.26, SHX0, y - 0.018, y, 0.01, 0.01 + d, M.dSecond));
+  [[1.0, DD - 0.02], [1.22, DD - 0.1]].forEach(([y, d]) => BR(CX0 - 0.26, SHX0, y - 0.018, y, 0.01, 0.01 + d, 0.08, M.dSecond));
   [[RX - 0.18, 0.04], [RX - 0.1, 0.03]].forEach(([x, r], i) => {     // cosmetics on the counter
     const b = new THREE.Mesh(new THREE.CylinderGeometry(r, r, 0.12 + i * 0.05, 16), BOOKS[3 + i]);
     b.position.set(x, counterY + (0.12 + i * 0.05) / 2, 0.3); b.castShadow = true; furn.add(b);

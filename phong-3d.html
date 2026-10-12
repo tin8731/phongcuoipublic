@@ -1,0 +1,685 @@
+<title>Phòng ngủ tông ghi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: full-height viewer — 3D canvas fills the left, a narrow spec sheet on the right; stacks on phones. */
+:root {
+  --bg: #eceeed;
+  --panel: #f7f8f7;
+  --fg: #23272a;
+  --muted: #646b70;
+  --line: #d3d7d6;
+  --accent: #8a6a3e;
+  --chip: #e3e6e4;
+  --font-body: "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif;
+  --font-num: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1b1d1f; --panel: #222527; --fg: #e7e9ea; --muted: #9aa1a6;
+    --line: #363a3d; --accent: #c9a56f; --chip: #2c3033; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1b1d1f; --panel: #222527; --fg: #e7e9ea; --muted: #9aa1a6;
+  --line: #363a3d; --accent: #c9a56f; --chip: #2c3033; color-scheme: dark;
+}
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 14px; line-height: 1.5; }
+.app { display: grid; grid-template-columns: minmax(0, 1fr) 330px; height: 100%; }
+.view { position: relative; min-width: 0; overflow: hidden; }
+#c { display: block; width: 100%; height: 100%; touch-action: none; }
+.labels { position: absolute; inset: 0; pointer-events: none; }
+.tag {
+  position: absolute; transform: translate(-50%, -50%); white-space: nowrap;
+  font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 4px;
+  background: rgba(20, 22, 24, .78); color: #f2f2f0; letter-spacing: .01em;
+}
+.tag.warn { background: rgba(138, 106, 62, .92); }
+.hint {
+  position: absolute; left: 16px; bottom: 14px; font-size: 12px; color: #f2f2f0;
+  background: rgba(20, 22, 24, .6); padding: 4px 10px; border-radius: 4px;
+}
+aside {
+  background: var(--panel); border-left: 1px solid var(--line); overflow-y: auto;
+  padding: 22px 20px 28px; display: flex; flex-direction: column; gap: 22px;
+}
+h1 { margin: 0; font-size: 21px; font-weight: 700; line-height: 1.25; text-wrap: balance; }
+.sub { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+h2 {
+  margin: 0 0 10px; font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .09em; color: var(--muted);
+}
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.btns { display: flex; flex-wrap: wrap; gap: 6px; }
+button {
+  font: inherit; font-size: 13px; font-weight: 500; color: var(--fg); background: var(--chip);
+  border: 1px solid transparent; border-radius: 6px; padding: 7px 11px; cursor: pointer;
+}
+button:hover { border-color: var(--line); }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button[aria-pressed="true"] { background: var(--fg); color: var(--panel); }
+.targets { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 2px; }
+.targets button {
+  width: 100%; display: grid; grid-template-columns: 22px 104px minmax(0, 1fr); gap: 10px; align-items: center;
+  text-align: left; background: transparent; padding: 5px 6px; border-radius: 6px;
+}
+.targets button[aria-pressed="true"] { background: var(--chip); color: var(--fg); border-color: var(--line); }
+.targets i, .presets i { width: 22px; height: 22px; border-radius: 4px; border: 1px solid var(--line); display: block; }
+.targets .t-name { color: var(--muted); }
+.targets .t-val { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.picker { margin-top: 10px; padding: 12px; border: 1px solid var(--line); border-radius: 8px; display: grid; gap: 10px; }
+.picker-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; }
+.presets { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.presets button { padding: 0; aspect-ratio: 1; max-width: 100%; border-radius: 6px; background: transparent; display: grid; place-items: center; }
+.presets button i { width: 100%; height: 100%; border-radius: 5px; }
+.presets button[aria-pressed="true"] { outline: 2px solid var(--accent); outline-offset: 1px; background: transparent; }
+.custom { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+.custom input[type="color"] { width: 40px; height: 28px; border: 1px solid var(--line); border-radius: 5px; padding: 0 2px; background: var(--panel); cursor: pointer; }
+.linkbtn { background: transparent; padding: 2px 4px; font-size: 12px; color: var(--accent); }
+.changes { margin: 0; padding-left: 18px; display: grid; gap: 7px; font-size: 13px; }
+.changes b { font-weight: 600; }
+dl { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 12px; font-size: 13px; }
+dt { color: var(--muted); }
+dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums; text-align: right; }
+.note { font-size: 12px; color: var(--muted); margin: 10px 0 0; }
+.toggle { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-top: 10px; }
+@media (max-width: 760px) {
+  .app { grid-template-columns: 1fr; grid-template-rows: 62vh auto; height: auto; }
+  html, body { height: auto; }
+  aside { border-left: 0; border-top: 1px solid var(--line); padding: 20px 16px 28px; overflow: visible; }
+}
+</style>
+
+<div class="app">
+  <div class="view" id="view">
+    <canvas id="c" aria-label="Mô hình 3D phòng ngủ"></canvas>
+    <div class="labels" id="labels"></div>
+    <div class="hint">Kéo để xoay · cuộn để phóng to · chuột phải để dời</div>
+  </div>
+  <aside>
+    <header>
+      <h1>Phòng ngủ tông ghi</h1>
+      <p class="sub">Phương án bố trí lại, dựng 3D từ bản vẽ gốc</p>
+    </header>
+
+    <section>
+      <h2>Bảng màu</h2>
+      <div class="seg" role="group" aria-label="Bảng màu">
+        <button id="p-light" aria-pressed="true">Bản sáng</button>
+        <button id="p-dark" aria-pressed="false">Bản tối</button>
+      </div>
+      <ul class="targets" id="targets"></ul>
+      <div class="picker">
+        <div class="picker-head"><span id="pickTitle">Tủ áo · cánh</span><button class="linkbtn" id="resetColors">Khôi phục màu gốc</button></div>
+        <div class="presets" id="presets"></div>
+        <label class="custom" for="customColor"><input type="color" id="customColor" value="#d8c8af"> Chọn màu bất kỳ</label>
+      </div>
+      <p class="note">Bấm một món trong danh sách rồi chọn màu. Đổi bản sáng/tối sẽ đưa mọi màu về bộ màu của bản đó.</p>
+    </section>
+
+    <section>
+      <h2>Góc nhìn</h2>
+      <div class="btns" id="views"></div>
+      <label class="toggle"><input type="checkbox" id="showLabels" checked> Hiện nhãn đồ nội thất</label>
+    </section>
+
+    <section>
+      <h2>Thay đổi so với bản gốc</h2>
+      <ol class="changes">
+        <li><b>Giường 1,8 × 2,0 m, cao 0,4 m, đầu giường cao 0,8 m</b>, tựa tường cửa sổ bên phải — đúng chiều cao đầu giường để không che cửa sổ phía trên. Thành giường sát tường cửa ra vào.</li>
+        <li><b>Bỏ tủ kịch trần ở góc</b>, thay bằng tủ/kệ chữ L theo đúng ảnh mẫu: mặt quầy 0,74 m có cửa tủ bo tròn phía bàn máy tính; phía bàn trang điểm là kệ hở 4 tầng, rộng 0,4 m, cao tới 1,52 m.</li>
+        <li><b>Cạnh hướng đầu giường là bàn trang điểm</b>, sâu 0,5 m, nối liền đầu giường, có gương đứng, ngăn kéo mỏng và đôn ngồi.</li>
+        <li><b>Góc ngoài là bàn máy tính dài đúng bằng đuôi giường (~1,58 m)</b>, cộng 0,5 m chỗ đặt tủ góc — tổng ~2,08 m dọc tường cửa sổ.</li>
+        <li><b>Tủ áo 4 cánh × 0,5 m = 2,0 m, cao kịch trần (3,0 m), cửa lùa ở cánh chính</b>, cộng 0,2 m kệ trang trí bo góc ở đầu phía cửa (tổng 2,2 m dọc tường).</li>
+        <li><b>Cửa phòng 0,8 × 2,08 × dày 0,04 m</b> đẩy sát vào góc tường (cạnh tủ áo) để kiểm tra thực tế — cánh cửa mở 90° chạm/áp sát mặt tủ áo, xem hình để cân nhắc có cần chừa khe hay giữ nguyên.</li>
+        <li><b>Cửa sổ đầu giường</b> giữa tường 3,0 m: rộng 1,14 m, cách đều mỗi bên 0,94 m (đáy cách sàn 0,8 m, cao 1,52 m).</li>
+        <li><b>Cửa sổ bàn máy tính</b> trên tường 4,0 m: rộng 1,14 m, cách đều mỗi bên 1,5 m, đáy cách sàn 0,8 m — cùng chiều cao và cùng mép trên/dưới với cửa sổ đầu giường. Điều hoà treo tường cạnh cửa sổ, đèn giữ nguyên theo ảnh thực tế. Góc kệ hở thêm phía trên bàn máy tính theo ảnh mẫu.</li>
+        <li><b>Tường sơn ghi</b>, gỗ phối theo tường ở 2 bản sáng và tối.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Kích thước dùng để dựng</h2>
+      <dl>
+        <dt>Phòng (ngang × sâu × cao) — đo thực tế</dt><dd>4,0 × 3,0 × 3,0 m</dd>
+        <dt>Giường (R × D) — cao giường / đầu giường</dt><dd>1,8 × 2,0 m — 0,4 / 0,8 m</dd>
+        <dt>Tủ áo 4 cánh × 0,5 m (ngang × sâu × cao)</dt><dd>2,0 × 0,6 × 3,0 m</dd>
+        <dt>+ kệ trang trí bo góc (ngang)</dt><dd>0,2 m</dd>
+        <dt>Bàn máy tính (dài × sâu) — mép bàn thẳng đuôi giường</dt><dd>~1,58 × 0,5 m</dd>
+        <dt>Tủ góc chữ L: quầy + cửa bo tròn (ngang × sâu × cao)</dt><dd>0,5 × 0,5 × 0,74 m</dd>
+        <dt>Kệ hở phía bàn trang điểm (ngang × sâu × cao)</dt><dd>0,4 × 0,5 × 1,52 m</dd>
+        <dt>Bàn trang điểm (dài × sâu)</dt><dd>0,7 × 0,5 m</dd>
+        <dt>Lối đi đuôi giường ↔ tủ áo</dt><dd>1,32 m</dd>
+        <dt>Cửa phòng (R × C × dày), sát góc tủ áo</dt><dd>0,8 × 2,08 × 0,04 m</dd>
+        <dt>Cửa sổ đầu giường, giữa tường 3,0 m</dt><dd>1,14 × 1,52 m — lề 0,94 m, đáy 0,8 m</dd>
+        <dt>Cửa sổ bàn máy tính, trên tường 4,0 m</dt><dd>1,14 × 1,52 m — lề 1,5 m, đáy 0,8 m</dd>
+      </dl>
+      <p class="note">Số đo lấy theo thực tế phòng và các thông số đã chốt. Cửa phòng đã đẩy sát góc (cạnh tủ áo) để kiểm tra va chạm — xem hình 3D. Lề cửa sổ bàn máy tính 1,5 m mỗi bên cộng bề rộng cửa sổ dư 14cm so với tường 4,0 m (150+150+114=414cm); đã giữ lề bên trái đúng 1,5 m theo số đo, lề bên phải sẽ hụt khoảng 14cm — báo lại nếu cần chỉnh.</p>
+    </section>
+  </aside>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(function () {
+  const RX = 4.0, RZ = 3.0, H = 3.0, T = 0.1;
+
+  // ---------- palettes ----------
+  const PALETTES = {
+    light: {
+      bg: 0xe2e4e2, exposure: 0.82,
+      wall: 0xb3b7b6, ceiling: 0xf4f4f2, floor: 0xffffff,
+      main: 0xd8c8af, second: 0xeeebe5, handle: 0x1f2022,
+      headboard: 0xb9bcb9, sheet: 0xf3f2ef, duvet: 0x9ba3a6, pillow: 0xe4e1db,
+      accent: 0x7f8f84, rug: 0xb3aea4, door: 0xc9b597, frame: 0x2b2c2e, chair: 0x8e9396,
+      names: { wall: "Ghi sáng", floor: "Đá hoa đỏ trắng", main: "Gỗ sồi trắng", second: "Trắng sứ mờ", handle: "Đen mờ", headboard: "Nỉ ghi" }
+    },
+    dark: {
+      bg: 0x2a2c2e, exposure: 1.0,
+      wall: 0x686c6f, ceiling: 0xdedfdd, floor: 0xb0aca6,
+      main: 0x6f5240, second: 0x323538, handle: 0xb8955e,
+      headboard: 0x45484b, sheet: 0xd9d5cd, duvet: 0x3d4043, pillow: 0x8c8379,
+      accent: 0x9a7552, rug: 0x4b4947, door: 0x6f5240, frame: 0x1c1d1f, chair: 0x4a4d50,
+      names: { wall: "Ghi đậm", floor: "Đá hoa đỏ trắng (tối)", main: "Gỗ óc chó", second: "Xám than", handle: "Đồng xước", headboard: "Nỉ than" }
+    }
+  };
+  // Items the viewer can recolor: [key, label, palette default key]
+  const TARGETS = [
+    ["wMain", "Tủ áo · cánh", "main"],
+    ["wSecond", "Tủ áo · khung", "second"],
+    ["dMain", "Bàn · mặt, cánh", "main"],
+    ["dSecond", "Bàn · khung", "second"],
+    ["bFrame", "Giường · khung", "second"],
+    ["headboard", "Đầu giường", "headboard"],
+    ["wall", "Tường", "wall"],
+    ["floor", "Sàn", "floor"],
+    ["handle", "Tay nắm", "handle"]
+  ];
+  const PRESETS = [
+    ["Gỗ sồi trắng", 0xd8c8af], ["Sồi tự nhiên", 0xc4a27c], ["Tần bì xám", 0xa79f92], ["Gỗ óc chó", 0x6f5240],
+    ["Trắng sứ mờ", 0xeeebe5], ["Be cát", 0xd6c6ae], ["Ghi sáng", 0xb3b7b6], ["Ghi đậm", 0x686c6f],
+    ["Xám than", 0x323538], ["Xanh rêu", 0x66735f], ["Xanh than", 0x3b4654], ["Hồng đất", 0xb48a7f],
+    ["Đen mờ", 0x1f2022], ["Đồng xước", 0xb8955e]
+  ];
+
+  // ---------- renderer ----------
+  const canvas = document.getElementById("c");
+  const view = document.getElementById("view");
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(55, 1, 0.05, 100);
+  const controls = new THREE.OrbitControls(camera, canvas);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.08;
+  controls.maxPolarAngle = Math.PI * 0.499;
+  controls.minDistance = 0.5;
+  controls.maxDistance = 14;
+
+  // ---------- procedural textures ----------
+  function rnd(seed) { let s = seed; return () => (s = (s * 16807) % 2147483647) / 2147483647; }
+  function grainTexture(vertical) {
+    const cv = document.createElement("canvas"); cv.width = 256; cv.height = 512;
+    const g = cv.getContext("2d"); const r = rnd(7);
+    g.fillStyle = "rgb(236,236,236)"; g.fillRect(0, 0, 256, 512);
+    for (let i = 0; i < 260; i++) {
+      const x = r() * 256, w = 0.5 + r() * 2.2, v = 200 + Math.floor(r() * 55);
+      g.strokeStyle = `rgba(${v},${v},${v},${0.25 + r() * 0.5})`; g.lineWidth = w;
+      g.beginPath(); g.moveTo(x, 0);
+      for (let y = 0; y <= 512; y += 32) g.lineTo(x + Math.sin(y * 0.01 + i) * 3, y);
+      g.stroke();
+    }
+    const t = new THREE.CanvasTexture(cv); t.encoding = THREE.sRGBEncoding;
+    t.wrapS = t.wrapT = THREE.RepeatWrapping;
+    if (!vertical) { t.rotation = Math.PI / 2; t.center.set(0.5, 0.5); }
+    return t;
+  }
+  function tileDiamondTexture() {
+    // red-brown / cream diamond terrazzo tile, matching phongthat/cửa+góc_đặt_giường.jpg
+    const S = 512, C = 64;
+    const cv = document.createElement("canvas"); cv.width = S; cv.height = S;
+    const g = cv.getContext("2d");
+    const img = g.createImageData(S, S);
+    const dark = [179, 121, 75], light = [231, 212, 176];
+    const r = rnd(23);
+    for (let y = 0; y < S; y++) {
+      for (let x = 0; x < S; x++) {
+        const u = Math.floor((x + y) / C), v = Math.floor((x - y) / C);
+        const isDark = ((u + v) % 2 + 2) % 2 === 0;
+        const base = isDark ? dark : light;
+        const speck = (r() - 0.5) * 16;
+        const idx = (y * S + x) * 4;
+        img.data[idx] = base[0] + speck; img.data[idx + 1] = base[1] + speck; img.data[idx + 2] = base[2] + speck;
+        img.data[idx + 3] = 255;
+      }
+    }
+    g.putImageData(img, 0, 0);
+    g.strokeStyle = "rgba(255,248,235,0.4)"; g.lineWidth = 2;
+    for (let k = -S; k <= 2 * S; k += C) {
+      g.beginPath(); g.moveTo(k, 0); g.lineTo(k - S, S); g.stroke();       // grout, slope -1
+      g.beginPath(); g.moveTo(k - S, 0); g.lineTo(k, S); g.stroke();       // grout, slope +1
+    }
+    const t = new THREE.CanvasTexture(cv); t.encoding = THREE.sRGBEncoding;
+    t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(RX / 4.0, RZ / 4.0); // 8 cells/tile × 0.5 m = 4.0 m per texture repeat
+    t.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    return t;
+  }
+  function skyTexture() {
+    const cv = document.createElement("canvas"); cv.width = 4; cv.height = 256;
+    const g = cv.getContext("2d"); const gr = g.createLinearGradient(0, 0, 0, 256);
+    gr.addColorStop(0, "#8fbfe6"); gr.addColorStop(0.65, "#d6e7f2"); gr.addColorStop(1, "#eef2f2");
+    g.fillStyle = gr; g.fillRect(0, 0, 4, 256);
+    const t = new THREE.CanvasTexture(cv); t.encoding = THREE.sRGBEncoding; return t;
+  }
+
+  const grainV = grainTexture(true);
+  const M = {};
+  const std = (o) => new THREE.MeshStandardMaterial(Object.assign({ roughness: 0.75, metalness: 0 }, o));
+  M.wall = std({ roughness: 0.95 });
+  M.ceiling = std({ roughness: 0.95 });
+  M.floor = std({ map: tileDiamondTexture(), roughness: 0.4 });
+  M.main = std({ map: grainV, roughness: 0.55 });
+  M.second = std({ roughness: 0.6 });
+  M.handle = std({ roughness: 0.35, metalness: 0.6 });
+  M.wMain = std({ map: grainV, roughness: 0.55 });
+  M.wSecond = std({ roughness: 0.6 });
+  M.dMain = std({ map: grainV, roughness: 0.55 });
+  M.dSecond = std({ roughness: 0.6 });
+  M.bFrame = std({ map: grainV, roughness: 0.6 });
+  M.mirror = new THREE.MeshBasicMaterial({ color: 0xc9d3d8 });
+  M.headboard = std({ roughness: 0.95 });
+  M.sheet = std({ roughness: 1 });
+  M.duvet = std({ roughness: 1 });
+  M.pillow = std({ roughness: 1 });
+  M.accent = std({ roughness: 1 });
+  M.rug = std({ roughness: 1 });
+  M.door = std({ map: grainV, roughness: 0.55 });
+  M.frame = std({ roughness: 0.45, metalness: 0.3 });
+  M.chair = std({ roughness: 0.9 });
+  M.acBody = std({ color: 0xf2f2ef, roughness: 0.4 });
+  M.glass = new THREE.MeshBasicMaterial({ map: skyTexture() });
+  M.outside = new THREE.MeshBasicMaterial({ color: 0x3a3936 });
+  M.lamp = new THREE.MeshStandardMaterial({ color: 0xfff1dc, emissive: 0xffd9a0, emissiveIntensity: 0.9 });
+  M.down = new THREE.MeshBasicMaterial({ color: 0xfff6e8 });
+  M.swing = new THREE.MeshBasicMaterial({ color: 0xc9a56f, transparent: true, opacity: 0.85, side: THREE.DoubleSide });
+  M.swingFill = new THREE.MeshBasicMaterial({ color: 0xc9a56f, transparent: true, opacity: 0.16, side: THREE.DoubleSide, depthWrite: false });
+  const BOOKS = [0x5b6b72, 0xa89f8e, 0x7d5f4a, 0xd6d2c8, 0x3e4447, 0x8f9a8a].map(c => std({ color: c, roughness: 0.9 }));
+
+  // ---------- helpers ----------
+  const furn = new THREE.Group(); scene.add(furn);
+  function B(x0, x1, y0, y1, z0, z1, mat, parent) {
+    const m = new THREE.Mesh(new THREE.BoxGeometry(x1 - x0, y1 - y0, z1 - z0), mat);
+    m.position.set((x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2);
+    m.castShadow = true; m.receiveShadow = true;
+    (parent || furn).add(m); return m;
+  }
+  function books(x0, x1, y, z0, z1, alongZ, seed) {
+    const r = rnd(seed); let p = alongZ ? z0 : x0; const end = alongZ ? z1 : x1;
+    while (p < end - 0.03) {
+      const w = 0.018 + r() * 0.03, h = 0.16 + r() * 0.09, d = 0.14 + r() * 0.06;
+      if (r() < 0.18) { p += 0.06; continue; }
+      const mat = BOOKS[Math.floor(r() * BOOKS.length)];
+      if (alongZ) B(x0, x0 + d, y, y + h, p, p + w, mat); else B(p, p + w, y, y + h, z0, z0 + d, mat);
+      p += w + 0.003;
+    }
+  }
+
+  // ---------- room shell ----------
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(RX, RZ), M.floor);
+  floor.rotation.x = -Math.PI / 2; floor.position.set(RX / 2, 0, RZ / 2); floor.receiveShadow = true;
+  scene.add(floor);
+
+  const walls = [];
+  function wallGroup(normal, point) { const g = new THREE.Group(); g.userData = { n: normal, p: point }; scene.add(g); walls.push(g); return g; }
+  function W(x0, x1, y0, y1, z0, z1, g) { const m = B(x0, x1, y0, y1, z0, z1, M.wall, g); m.castShadow = false; return m; }
+  function windowOn(g, axis, a0, a1, y0, y1, plane, inward) {
+    // axis 'x' => window spans x on a z-plane wall; 'z' => spans z on an x-plane wall
+    const f = 0.05, dep = 0.05, mid = (a0 + a1) / 2;
+    const P = (a, b, yy0, yy1, mat) => axis === "x"
+      ? B(a, b, yy0, yy1, plane, plane + inward * dep, mat, g)
+      : B(plane, plane + inward * dep, yy0, yy1, a, b, mat, g);
+    const glass = new THREE.Mesh(new THREE.PlaneGeometry(a1 - a0, y1 - y0), M.glass);
+    if (axis === "x") { glass.position.set(mid, (y0 + y1) / 2, plane + inward * 0.004); if (inward < 0) glass.rotation.y = Math.PI; }
+    else { glass.position.set(plane + inward * 0.004, (y0 + y1) / 2, mid); glass.rotation.y = inward > 0 ? Math.PI / 2 : -Math.PI / 2; }
+    g.add(glass);
+    [P(a0, a0 + f, y0, y1, M.frame), P(a1 - f, a1, y0, y1, M.frame), P(a0, a1, y0, y0 + f, M.frame), P(a0, a1, y1 - f, y1, M.frame)];
+    const split = a0 + (a1 - a0) * 0.62;
+    P(split - f / 2, split + f / 2, y0, y1, M.frame);
+    P(split, a1, y1 - 0.42, y1 - 0.42 + f, M.frame);
+    // sill
+    if (axis === "x") B(a0 - 0.04, a1 + 0.04, y0 - 0.03, y0, plane, plane + inward * 0.08, M.second, g);
+    else B(plane, plane + inward * 0.08, y0 - 0.03, y0, a0 - 0.04, a1 + 0.04, M.second, g);
+  }
+
+  // left wall (wardrobe)
+  const gL = wallGroup(new THREE.Vector3(1, 0, 0), new THREE.Vector3(0, 0, 0));
+  W(-T, 0, 0, H, -T, RZ + T, gL);
+  // right wall (bed head + centered window — sill 0.8 m, sits flush above the 0.8 m headboard)
+  const gR = wallGroup(new THREE.Vector3(-1, 0, 0), new THREE.Vector3(RX, 0, 0));
+  W(RX, RX + T, 0, H, -T, RZ + T, gR);
+  windowOn(gR, "z", 0.94, 2.08, 0.8, 2.32, RX, -1);
+  // top wall (desk window) + wall-mounted AC
+  const gT = wallGroup(new THREE.Vector3(0, 0, 1), new THREE.Vector3(0, 0, 0));
+  W(0, RX, 0, H, -T, 0, gT);
+  windowOn(gT, "x", 1.5, 2.64, 0.8, 2.32, 0, 1);
+  B(1.27, 2.07, 2.52, 2.78, 0.1, 0.3, M.acBody, gT);
+  B(1.27, 2.07, 2.46, 2.53, 0.1, 0.32, M.acBody, gT);
+  // bottom wall (entry door) — pushed flush into the corner to check clearance against the wardrobe
+  const D0 = 0, D1 = D0 + 0.8, DH = 2.08;
+  const gB = wallGroup(new THREE.Vector3(0, 0, -1), new THREE.Vector3(0, 0, RZ));
+  if (D0 > 0.001) W(0, D0, 0, H, RZ, RZ + T, gB);
+  W(D1, RX, 0, H, RZ, RZ + T, gB); W(D0, D1, DH, H, RZ, RZ + T, gB);
+  const corridor = new THREE.Mesh(new THREE.PlaneGeometry(1.4, DH + 0.3), M.outside);
+  corridor.position.set((D0 + D1) / 2, DH / 2, RZ + T + 0.4); corridor.rotation.y = Math.PI; gB.add(corridor);
+  if (D0 > 0.061) B(D0 - 0.06, D0, 0, DH + 0.06, RZ - 0.02, RZ + T, M.door, gB);
+  B(D1, D1 + 0.06, 0, DH + 0.06, RZ - 0.02, RZ + T, M.door, gB);
+  B(Math.max(D0 - 0.06, 0), D1 + 0.06, DH, DH + 0.06, RZ - 0.02, RZ + T, M.door, gB);
+
+  // ceiling + downlights
+  const ceil = new THREE.Group(); scene.add(ceil);
+  const cm = B(0, RX, H, H + 0.05, 0, RZ, M.ceiling, ceil); cm.castShadow = false;
+  [[1.1, 0.9], [1.1, 2.2], [2.9, 0.9], [2.9, 2.2]].forEach(([x, z]) => {
+    const d = new THREE.Mesh(new THREE.CircleGeometry(0.045, 24), M.down);
+    d.rotation.x = Math.PI / 2; d.position.set(x, H - 0.002, z); ceil.add(d);
+  });
+
+  // ---------- wardrobe: 4 doors × 0.5 m = 2.0 m cabinet, sliding on the main leaf, kept clear of the door swing ----------
+  const WD = 0.6, DSEG = 0.5, WL = 4 * DSEG, SW = 0.2; // 2.0 m cabinet (4 × 0.5 m doors) + 0.2 m rounded shelf
+  B(0, WD - 0.02, 0, H, 0, WL, M.wSecond);
+  for (let i = 0; i < 4; i++) {
+    const z0 = i * DSEG + 0.002, z1 = (i + 1) * DSEG - 0.002;
+    B(WD - 0.02, WD, 0.04, 0.34, z0, z1, M.wMain);                       // drawer
+    B(WD, WD + 0.006, 0.29, 0.3, z0 + 0.12, z1 - 0.12, M.handle);        // drawer grip
+    B(WD - 0.02, WD, 2.4, H - 0.01, z0, z1, M.wMain);                    // top box
+  }
+  // sliding doors: two overlapping panels riding a recessed top/bottom track
+  const slideMid = WL / 2;
+  B(WD - 0.035, WD - 0.014, 0.355, 2.39, 0, slideMid + 0.03, M.wMain);              // rear panel
+  B(WD - 0.014, WD, 0.36, 2.38, slideMid - 0.03, WL, M.wMain);                      // front panel
+  B(WD - 0.016, WD - 0.014, 0.6, 2.15, slideMid - 0.03, slideMid + 0.03, M.handle); // rear pull
+  B(WD - 0.002, WD, 0.6, 2.15, slideMid - 0.03, slideMid - 0.012, M.handle);        // front pull
+  B(0.01, WD - 0.01, 2.385, 2.4, 0, WL, M.wSecond);                                 // top track
+  B(0.01, WD - 0.01, 0.345, 0.36, 0, WL, M.wSecond);                                // bottom track
+  // rounded decorative shelf at the door-side end
+  const R = 0.25, sh = new THREE.Shape();
+  sh.moveTo(0, -WL); sh.lineTo(WD, -WL); sh.lineTo(WD, -(WL + SW - R));
+  sh.absarc(WD - R, -(WL + SW - R), R, 0, -Math.PI / 2, true); sh.lineTo(0, -(WL + SW)); sh.closePath();
+  function rslab(y0, h, mat) {
+    const g = new THREE.ExtrudeGeometry(sh, { depth: h, bevelEnabled: false, curveSegments: 20 });
+    g.rotateX(-Math.PI / 2);
+    const m = new THREE.Mesh(g, mat); m.position.y = y0; m.castShadow = m.receiveShadow = true; furn.add(m); return m;
+  }
+  rslab(0, 0.74, M.wMain); rslab(1.12, 0.025, M.wSecond); rslab(1.52, 0.025, M.wSecond);
+  rslab(1.92, 0.025, M.wSecond); rslab(2.4, H - 2.41, M.wMain);
+  books(0.02, 0, 0.765, WL + 0.03, WL + SW - 0.05, true, 3);
+  books(0.02, 0, 1.145, WL + 0.03, WL + SW - 0.08, true, 9);
+  const vase = new THREE.Mesh(new THREE.SphereGeometry(0.07, 20, 14), BOOKS[1]);
+  vase.scale.set(1, 1.3, 1); vase.position.set(0.3, 1.545 + 0.09, WL + 0.13); vase.castShadow = true; furn.add(vase);
+  B(0, 0.012, 0, 0.08, WL + SW, RZ, M.second, gL);
+  if (D0 > 0.061) B(0, D0 - 0.06, 0, 0.08, RZ - 0.012, RZ, M.second, gB);
+
+  // ---------- entry door (opens inward toward wardrobe) ----------
+  const pivot = new THREE.Group(); pivot.position.set(D0, 0, RZ - 0.02); scene.add(pivot);
+  B(0, D1 - D0, 0.01, DH - 0.01, -0.04, 0, M.door, pivot);
+  B(D1 - D0 - 0.09, D1 - D0 - 0.06, 1.0, 1.03, -0.07, 0, M.handle, pivot);
+  pivot.rotation.y = THREE.MathUtils.degToRad(80);
+  const arc = new THREE.Mesh(new THREE.RingGeometry(D1 - D0 - 0.012, D1 - D0, 48, 1, 0, Math.PI / 2), M.swing);
+  arc.rotation.x = -Math.PI / 2; arc.position.set(D0, 0.006, RZ); scene.add(arc);
+  const arcFill = new THREE.Mesh(new THREE.CircleGeometry(D1 - D0, 48, 0, Math.PI / 2), M.swingFill);
+  arcFill.rotation.x = -Math.PI / 2; arcFill.position.set(D0, 0.004, RZ); scene.add(arcFill);
+
+  // ---------- L desk: computer desk (outer) + low corner shelf unit (per mẫu tủ bàn chữ L, 1.4 m) + dressing table toward bed head ----------
+  const DD = 0.5;                 // depth of the desk/dressing-table run
+  const CX0 = RX - 0.5, CX1 = RX; // corner unit: counter + open shelving, 1.4 m total height
+  const counterY = 0.74;
+  B(CX0, CX1, 0, 0.06, 0, DD, M.dSecond);                                       // plinth
+  // rounded cabinet door below the counter, curved corner on the computer-desk side (per mẫu ảnh)
+  const cornerR = 0.14, cabH = counterY - 0.03 - 0.06;
+  const cabShape = new THREE.Shape();
+  cabShape.moveTo(CX1 - 0.02, -0.02);
+  cabShape.lineTo(CX1 - 0.02, -(DD - 0.02));
+  cabShape.lineTo(CX0 + 0.02 + cornerR, -(DD - 0.02));
+  cabShape.absarc(CX0 + 0.02 + cornerR, -(DD - 0.02 - cornerR), cornerR, 1.5 * Math.PI, Math.PI, true);
+  cabShape.lineTo(CX0 + 0.02, -0.02);
+  cabShape.closePath();
+  const cabGeo = new THREE.ExtrudeGeometry(cabShape, { depth: cabH, bevelEnabled: false, curveSegments: 24 });
+  cabGeo.rotateX(-Math.PI / 2);
+  const cabMesh = new THREE.Mesh(cabGeo, M.dMain);
+  cabMesh.position.y = 0.06; cabMesh.castShadow = cabMesh.receiveShadow = true; furn.add(cabMesh);
+  B(CX0 + 0.08, CX0 + 0.1, counterY - 0.32, counterY - 0.14, DD - 0.12, DD - 0.1, M.handle); // door pull near the rounded corner
+  B(CX0, CX1, counterY - 0.03, counterY, 0, DD, M.dMain);                       // counter top
+  // open shelf tower facing the dressing table: narrower (0.4 m) and one tier taller
+  const SHX0 = CX0, SHX1 = CX0 + 0.4;
+  [0.95, 1.14, 1.33, 1.52].forEach((y, i) => B(SHX0 + 0.01, SHX1 - 0.01, y - 0.018, y, 0, DD - 0.02 - i * 0.06, M.dSecond));
+  B(SHX0 + 0.01, SHX0 + 0.03, counterY, 1.52, 0.01, DD - 0.02, M.dSecond);      // side upright, dressing-table face
+  B(SHX1 - 0.03, SHX1 - 0.01, counterY, 1.52, 0.01, DD - 0.08, M.dSecond);      // side upright, computer-desk face
+  books(SHX0 + 0.05, SHX1 - 0.05, counterY, 0.03, 0.16, false, 21);
+  // small open corner shelf nook over the computer desk, like the sample photo's wall shelving
+  [[1.0, DD - 0.02], [1.22, DD - 0.1]].forEach(([y, d]) => B(CX0 - 0.26, CX0 - 0.02, y - 0.018, y, 0.01, 0.01 + d, M.dSecond));
+  [[RX - 0.18, 0.04], [RX - 0.1, 0.03]].forEach(([x, r], i) => {     // cosmetics on the counter
+    const b = new THREE.Mesh(new THREE.CylinderGeometry(r, r, 0.12 + i * 0.05, 16), BOOKS[3 + i]);
+    b.position.set(x, counterY + (0.12 + i * 0.05) / 2, 0.3); b.castShadow = true; furn.add(b);
+  });
+
+  // computer desk: left edge lines up exactly with the bed foot
+  const DX0 = RX - 0.08 - 2.0, MX = (DX0 + CX0) / 2; // MX: monitor centre, under the window
+  B(DX0, CX0, 0.72, 0.76, 0, DD, M.dMain);
+  B(DX0, DX0 + 0.03, 0, 0.72, 0, DD, M.dSecond);
+  B(DX0 + 0.03, DX0 + 0.43, 0, 0.72, 0, DD - 0.04, M.dSecond);       // drawer pedestal
+  [[0.03, 0.25], [0.27, 0.49], [0.51, 0.7]].forEach(([a, b]) => {
+    B(DX0 + 0.034, DX0 + 0.426, a, b, DD - 0.04, DD - 0.02, M.dMain);
+    B(DX0 + 0.15, DX0 + 0.31, b - 0.05, b - 0.04, DD - 0.02, DD - 0.014, M.handle);
+  });
+  B(DX0 + 0.43, CX0, 0.62, 0.72, DD - 0.06, DD - 0.04, M.dSecond);   // modesty rail
+  B(MX - 0.25, MX + 0.25, 0.76, 0.775, 0.1, 0.26, M.frame);           // monitor
+  B(MX - 0.02, MX + 0.02, 0.775, 0.95, 0.13, 0.16, M.frame);
+  B(MX - 0.38, MX + 0.38, 0.95, 1.38, 0.14, 0.16, M.frame);
+  B(MX - 0.21, MX + 0.21, 0.76, 0.775, 0.3, 0.44, M.frame);           // keyboard
+  B(MX - 0.21, MX + 0.21, 0.44, 0.5, 0.72, 1.12, M.chair);
+  B(MX - 0.19, MX + 0.19, 0.52, 0.96, 1.09, 1.13, M.chair);
+  [[-0.19, 0.74], [0.165, 0.74], [-0.19, 1.08], [0.165, 1.08]].forEach(([dx, z]) => B(MX + dx, MX + dx + 0.025, 0, 0.44, z, z + 0.025, M.frame));
+
+  // dressing table along the right wall, between the corner unit and the bed head
+  const TX0 = RX - 0.5, TZ0 = DD, TZ1 = 1.2;
+  B(TX0, RX, 0.72, 0.76, TZ0, TZ1, M.dMain);
+  B(TX0 + 0.02, RX, 0.62, 0.72, TZ0, TZ1 - 0.02, M.dSecond);
+  B(TX0, TX0 + 0.02, 0.625, 0.715, TZ0 + 0.01, TZ1 - 0.03, M.dMain);  // slim drawer
+  B(TX0 - 0.006, TX0, 0.66, 0.67, TZ0 + 0.2, TZ1 - 0.22, M.handle);
+  B(TX0, RX, 0, 0.72, TZ1 - 0.02, TZ1, M.dSecond);                   // side panel by the bed
+  const mz = 0.83;
+  const mFrame = new THREE.Mesh(new THREE.CircleGeometry(1, 48), M.handle);
+  mFrame.scale.set(0.2, 0.32, 1); mFrame.rotation.y = -Math.PI / 2; mFrame.position.set(RX - 0.14, 1.12, mz); furn.add(mFrame);
+  const mGlass = new THREE.Mesh(new THREE.CircleGeometry(1, 48), M.mirror);
+  mGlass.scale.set(0.18, 0.3, 1); mGlass.rotation.y = -Math.PI / 2; mGlass.position.set(RX - 0.145, 1.12, mz); furn.add(mGlass);
+  B(RX - 0.16, RX - 0.08, 0.76, 0.8, mz - 0.08, mz + 0.08, M.handle);
+  const stool = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.14, 0.45, 32), M.chair);
+  stool.position.set(RX - 0.66, 0.225, 0.88); stool.castShadow = stool.receiveShadow = true; furn.add(stool);
+  const base = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.05, 0.24, 24), M.dSecond);
+  base.position.set(RX - 0.18, 0.88, 1.1); base.castShadow = true; furn.add(base);
+  const shade = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.09, 0.14, 32, 1, true), M.lamp);
+  shade.position.set(RX - 0.18, 1.06, 1.1); furn.add(shade);
+
+  // ---------- bed 1.8 x 2.0: head on right wall, headboard 0.8 m tall, bed 0.4 m tall ----------
+  const BX0 = RX - 0.08 - 2.0, BZ1 = RZ, BZ0 = BZ1 - 1.8;
+  B(RX - 0.08, RX, 0, 0.8, BZ0, RZ, M.headboard);
+  B(BX0, RX - 0.08, 0.06, 0.28, BZ0, BZ1, M.bFrame);
+  B(BX0 + 0.04, RX - 0.1, 0, 0.06, BZ0 + 0.04, BZ1 - 0.04, M.frame);
+  B(BX0 + 0.03, RX - 0.1, 0.28, 0.4, BZ0 + 0.03, BZ1 - 0.03, M.sheet);
+  B(BX0 - 0.01, RX - 0.75, 0.4, 0.46, BZ0 + 0.01, BZ1 - 0.01, M.duvet);
+  B(BX0 - 0.02, BX0 + 0.48, 0.46, 0.48, BZ0, BZ1 - 0.005, M.accent);
+  B(BX0 - 0.03, BX0 + 0.48, 0.28, 0.46, BZ0 - 0.02, BZ0, M.accent);
+  function pillow(x, z, sx, sy, sz, mat, tilt) {
+    const p = new THREE.Mesh(new THREE.SphereGeometry(1, 28, 16), mat);
+    p.scale.set(sx, sy, sz); p.position.set(x, 0.4 + sy * 0.9, z); p.rotation.z = tilt || 0;
+    p.castShadow = p.receiveShadow = true; furn.add(p);
+  }
+  const BZm = (BZ0 + BZ1) / 2;
+  pillow(RX - 0.3, BZm - 0.46, 0.14, 0.09, 0.38, M.pillow, 0.35);
+  pillow(RX - 0.3, BZm + 0.46, 0.14, 0.09, 0.38, M.pillow, 0.35);
+  pillow(RX - 0.5, BZm, 0.1, 0.1, 0.22, M.accent, 0.25);
+
+  // rug
+  const rug = B(BX0 - 0.7, BX0 + 0.8, 0, 0.01, 1.05, 2.85, M.rug); rug.castShadow = false;
+
+  // ---------- lights ----------
+  const hemi = new THREE.HemisphereLight(0xffffff, 0x8a8070, 0.42); scene.add(hemi);
+  const sun = new THREE.DirectionalLight(0xfff4e6, 0.95);
+  sun.position.set(5.5, 5.5, -2.5); sun.target.position.set(2.0, 0, 1.5);
+  sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
+  Object.assign(sun.shadow.camera, { left: -4, right: 4, top: 4, bottom: -4, near: 1, far: 16 });
+  sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.02;
+  scene.add(sun, sun.target);
+  [[1.1, 1.5], [2.9, 2.0]].forEach(([x, z]) => { const p = new THREE.PointLight(0xffe8cc, 0.35, 6, 2); p.position.set(x, H - 0.15, z); scene.add(p); });
+  const lampLight = new THREE.PointLight(0xffc98a, 0.35, 2.5, 2); lampLight.position.set(RX - 0.18, 1.06, 1.1); scene.add(lampLight);
+
+  // ---------- labels ----------
+  const LABELS = [
+    ["Tủ áo 4×0,5 m · cửa lùa", [0.3, 2.4, 1.0]],
+    ["Kệ trang trí bo góc 0,2 m", [0.3, 1.8, 2.25]],
+    ["Cửa tủ bo tròn", [3.85, 0.5, 0.2]],
+    ["Kệ hở 0,4 m · cao 1,52 m", [3.55, 1.2, 0.2]],
+    ["Góc kệ để đồ", [3.3, 1.1, 0.3]],
+    ["Bàn máy tính ~1,58 m", [2.71, 0.82, 0.2]],
+    ["Bàn trang điểm 0,5 m", [3.78, 0.82, 0.85]],
+    ["Giường 1,8 × 2,0 m · cao 0,4 m", [2.6, 0.45, 2.3]],
+    ["Đầu giường cao 0,8 m", [3.9, 0.4, 2.1]],
+    ["Cửa sổ 1,14 × 1,52 m", [4.0, 1.6, 1.51], "warn"],
+    ["Cửa sổ 1,14 × 1,52 m", [2.07, 1.7, 0], "warn"],
+    ["Điều hoà", [1.67, 2.65, 0.2]],
+    ["Cửa 0,8 × 2,08 m — sát góc tủ", [0.4, 1.0, 3.02], "warn"]
+  ];
+  const labelLayer = document.getElementById("labels");
+  const labelEls = LABELS.map(([t, p, cls]) => {
+    const el = document.createElement("div"); el.className = "tag" + (cls ? " " + cls : ""); el.textContent = t;
+    labelLayer.appendChild(el); return { el, v: new THREE.Vector3(...p) };
+  });
+  const showLabels = document.getElementById("showLabels");
+  showLabels.addEventListener("change", () => { labelLayer.hidden = !showLabels.checked; });
+
+  // ---------- colors: palette + per-item overrides ----------
+  const hexStr = (h) => "#" + h.toString(16).padStart(6, "0");
+  const targetsEl = document.getElementById("targets");
+  const presetsEl = document.getElementById("presets");
+  const customEl = document.getElementById("customColor");
+  const pickTitle = document.getElementById("pickTitle");
+  const btnL = document.getElementById("p-light"), btnD = document.getElementById("p-dark");
+  let palette = "light", active = "wMain";
+  const colors = {}; // key -> { hex, name }
+
+  function setColor(key, hex, name) {
+    colors[key] = { hex, name };
+    M[key].color.setHex(hex);
+  }
+  function renderTargets() {
+    targetsEl.innerHTML = "";
+    TARGETS.forEach(([key, label]) => {
+      const li = document.createElement("li"), b = document.createElement("button");
+      b.setAttribute("aria-pressed", String(key === active));
+      b.innerHTML = `<i style="background:${hexStr(colors[key].hex)}"></i><span class="t-name">${label}</span><span class="t-val">${colors[key].name}</span>`;
+      b.addEventListener("click", () => { active = key; renderTargets(); renderPicker(); });
+      li.appendChild(b); targetsEl.appendChild(li);
+    });
+  }
+  function renderPicker() {
+    pickTitle.textContent = TARGETS.find(t => t[0] === active)[1];
+    customEl.value = hexStr(colors[active].hex);
+    [...presetsEl.children].forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.hex === colors[active].hex)));
+  }
+  PRESETS.forEach(([name, hex]) => {
+    const b = document.createElement("button");
+    b.dataset.hex = hex; b.title = name; b.setAttribute("aria-label", name);
+    b.innerHTML = `<i style="background:${hexStr(hex)}"></i>`;
+    b.addEventListener("click", () => { setColor(active, hex, name); renderTargets(); renderPicker(); });
+    presetsEl.appendChild(b);
+  });
+  customEl.addEventListener("input", () => {
+    const hex = parseInt(customEl.value.slice(1), 16);
+    setColor(active, hex, "Tuỳ chọn " + customEl.value.toUpperCase()); renderTargets(); renderPicker();
+  });
+
+  function applyPalette(name) {
+    const P = PALETTES[name]; palette = name;
+    ["ceiling", "main", "second", "sheet", "duvet", "pillow", "accent", "rug", "door", "frame", "chair"]
+      .forEach(k => M[k].color.setHex(P[k]));
+    TARGETS.forEach(([key, , src]) => setColor(key, P[src], P.names[src]));
+    M.handle.metalness = name === "dark" ? 0.75 : 0.3;
+    scene.background = new THREE.Color(P.bg);
+    renderer.toneMappingExposure = P.exposure;
+    btnL.setAttribute("aria-pressed", String(name === "light"));
+    btnD.setAttribute("aria-pressed", String(name === "dark"));
+    renderTargets(); renderPicker();
+    try { localStorage.setItem("phong-palette", name); } catch (e) {}
+  }
+  btnL.addEventListener("click", () => applyPalette("light"));
+  btnD.addEventListener("click", () => applyPalette("dark"));
+  document.getElementById("resetColors").addEventListener("click", () => applyPalette(palette));
+  let startPalette = "light";
+  try { if (localStorage.getItem("phong-palette") === "dark") startPalette = "dark"; } catch (e) {}
+  applyPalette(startPalette);
+
+  // ---------- views ----------
+  const VIEWS = [
+    ["Toàn cảnh", [5.9, 5.3, 5.8], [2.0, 0.8, 1.5]],
+    ["Mặt bằng", [2.0, 8.4, 1.52], [2.0, 0, 1.5]],
+    ["Nhìn tủ áo", [3.6, 1.6, 2.1], [0, 1.4, 1.0]],
+    ["Nhìn bàn máy tính", [0.9, 1.6, 2.7], [3.0, 1.1, 0.3]],
+    ["Nhìn bàn trang điểm", [2.0, 1.55, 1.2], [4.0, 1.1, 0.75]],
+    ["Nhìn cửa ra vào", [3.0, 1.6, 0.8], [0.9, 1.1, 3.0]]
+  ];
+  const viewsEl = document.getElementById("views");
+  let anim = null;
+  function goTo(i, instant) {
+    const [, pos, tgt] = VIEWS[i];
+    [...viewsEl.children].forEach((b, j) => b.setAttribute("aria-pressed", String(i === j)));
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (instant || reduce) { camera.position.set(...pos); controls.target.set(...tgt); controls.update(); return; }
+    anim = { t0: performance.now(), p0: camera.position.clone(), q0: controls.target.clone(), p1: new THREE.Vector3(...pos), q1: new THREE.Vector3(...tgt) };
+  }
+  VIEWS.forEach(([name], i) => {
+    const b = document.createElement("button"); b.textContent = name; b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", () => goTo(i)); viewsEl.appendChild(b);
+  });
+  controls.addEventListener("start", () => { anim = null; [...viewsEl.children].forEach(b => b.setAttribute("aria-pressed", "false")); });
+  goTo(0, true);
+
+  // ---------- loop ----------
+  function resize() {
+    const w = view.clientWidth, h = view.clientHeight;
+    renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+  }
+  new ResizeObserver(resize).observe(view); resize();
+
+  const tmp = new THREE.Vector3();
+  function frame(now) {
+    if (anim) {
+      const k = Math.min(1, (now - anim.t0) / 900), e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+      camera.position.lerpVectors(anim.p0, anim.p1, e); controls.target.lerpVectors(anim.q0, anim.q1, e);
+      if (k >= 1) anim = null;
+    }
+    controls.update();
+    // cut away walls/ceiling between the camera and the room
+    walls.forEach(g => { tmp.copy(camera.position).sub(g.userData.p); g.visible = tmp.dot(g.userData.n) > 0; });
+    ceil.visible = camera.position.y < H;
+    renderer.render(scene, camera);
+    if (!labelLayer.hidden) {
+      const w = view.clientWidth, h = view.clientHeight;
+      labelEls.forEach(({ el, v }) => {
+        tmp.copy(v).project(camera);
+        const vis = tmp.z < 1 && Math.abs(tmp.x) < 1.05 && Math.abs(tmp.y) < 1.05;
+        el.hidden = !vis;
+        if (vis) { el.style.left = ((tmp.x + 1) / 2 * w) + "px"; el.style.top = ((1 - tmp.y) / 2 * h) + "px"; }
+      });
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>

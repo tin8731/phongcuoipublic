@@ -1,4 +1,4 @@
-<title>Phòng ngủ tông ghi</title>
+<title>Phòng ngủ tông hồng</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -93,13 +93,45 @@ button[aria-pressed="true"] { background: var(--fg); color: var(--panel); }
 .custom { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
 .custom input[type="color"] { width: 40px; height: 28px; border: 1px solid var(--line); border-radius: 5px; padding: 0 2px; background: var(--panel); cursor: pointer; }
 .linkbtn { background: transparent; padding: 2px 4px; font-size: 12px; color: var(--accent); }
-.changes { margin: 0; padding-left: 18px; display: grid; gap: 7px; font-size: 13px; }
-.changes b { font-weight: 600; }
 dl { margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 12px; font-size: 13px; }
 dt { color: var(--muted); }
 dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums; text-align: right; }
 .note { font-size: 12px; color: var(--muted); margin: 10px 0 0; }
 .toggle { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-top: 10px; }
+.note.unit { margin: 0 0 10px; }
+.note.unit b { color: var(--fg); }
+/* floor plan (SVG in mm) */
+.planBtn { display: block; width: 100%; padding: 8px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; text-align: center; }
+.planHint { display: block; font-size: 12px; color: var(--muted); margin-top: 4px; }
+.plan { display: block; width: 100%; height: auto; }
+.plan text { font-family: var(--font-body); font-size: 130px; font-weight: 600; fill: var(--fg); text-anchor: middle; dominant-baseline: middle; }
+.plan .p-sm { font-size: 105px; font-weight: 500; }
+.plan .p-room { fill: var(--panel); }
+.plan .p-wall { fill: none; stroke: var(--fg); stroke-width: 100; }
+.plan .p-gap { fill: var(--panel); }
+.plan .p-win { fill: #bcd8ea; stroke: var(--fg); stroke-width: 12; }
+.plan .p-swing { fill: none; stroke: var(--accent); stroke-width: 14; stroke-dasharray: 40 30; }
+.plan .p-f { fill: var(--chip); stroke: var(--fg); stroke-width: 14; }
+.plan .p-acc { fill: var(--muted); }
+.plan .p-dash { stroke-dasharray: 40 25; }
+.plan .p-line { fill: none; stroke: var(--fg); stroke-width: 8; }
+.plan .p-dim path { fill: none; stroke: var(--accent); stroke-width: 10; }
+.plan .p-dim text { fill: var(--accent); font-family: var(--font-num); font-size: 120px; paint-order: stroke; stroke: var(--panel); stroke-width: 30px; }
+.planDlg { width: min(1100px, calc(100vw - 32px)); max-height: calc(100vh - 32px); padding: 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--fg); }
+.planDlg::backdrop { background: rgba(0, 0, 0, .55); }
+.planDlg-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 10px; }
+/* spec tables */
+.specs { gap: 10px; display: grid; }
+.specs details { border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
+.specs summary { cursor: pointer; padding: 9px 12px; font-weight: 600; font-size: 13.5px; }
+.specs details[open] summary { border-bottom: 1px solid var(--line); }
+.specs .note { margin: 0; padding: 0 12px 10px; }
+.spec { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.spec th { text-align: left; font-weight: 400; color: var(--muted); padding: 6px 8px 6px 12px; vertical-align: top; }
+.spec td { text-align: right; padding: 6px 12px 6px 4px; font-family: var(--font-num); font-variant-numeric: tabular-nums; white-space: nowrap; vertical-align: top; color: var(--fg); font-weight: 500; }
+.spec td.txt { font-family: var(--font-body); white-space: normal; }
+.spec tr + tr th, .spec tr + tr td { border-top: 1px solid var(--line); }
+.spec tr.grp th { color: var(--accent); font-weight: 600; font-size: 11.5px; text-transform: uppercase; letter-spacing: .05em; padding-top: 10px; }
 @media (max-width: 760px) {
   .app { grid-template-columns: 1fr; grid-template-rows: 62vh auto; height: auto; }
   .app.noAside { grid-template-rows: 100vh; height: 100vh; }
@@ -117,8 +149,8 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
   </div>
   <aside>
     <header>
-      <h1>Phòng ngủ tông ghi</h1>
-      <p class="sub">Phương án bố trí lại, dựng 3D từ bản vẽ gốc</p>
+      <h1>Phòng ngủ tông hồng</h1>
+      <p class="sub">Mô hình 3D và thông số thi công</p>
     </header>
 
     <section>
@@ -148,40 +180,165 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
     </section>
 
     <section>
-      <h2>Thay đổi so với bản gốc</h2>
-      <ol class="changes">
-        <li><b>Giường 1,8 × 2,0 m, cao 0,4 m, đầu giường cao 0,77 m</b>, tựa tường cửa sổ bên phải — thấp hơn đáy cửa sổ (0,8 m) nên không che cửa sổ phía trên. Thành giường sát tường cửa ra vào.</li>
-        <li><b>Bỏ tủ kịch trần ở góc</b>, thay bằng tủ/kệ chữ L theo đúng ảnh mẫu: mặt quầy 0,74 m có cửa tủ bo tròn phía bàn máy tính; phía bàn trang điểm là kệ hở 4 tầng, rộng 0,4 m, cao tới 1,52 m.</li>
-        <li><b>Cạnh hướng đầu giường là bàn trang điểm</b>, sâu 0,5 m, nối liền đầu giường, có gương đứng, ngăn kéo mỏng và đôn ngồi.</li>
-        <li><b>Góc ngoài là bàn máy tính dài đúng bằng đuôi giường (~1,58 m)</b>, cộng 0,5 m chỗ đặt tủ góc — tổng ~2,08 m dọc tường cửa sổ.</li>
-        <li><b>Tủ áo 4 cánh × 0,5 m = 2,0 m, cao kịch trần (3,0 m), cửa lùa ở cánh chính</b>, cộng 0,2 m kệ trang trí bo góc ở đầu phía cửa (tổng 2,2 m dọc tường).</li>
-        <li><b>Cửa phòng 0,8 × 2,08 × dày 0,04 m</b> đẩy sát vào góc tường (cạnh tủ áo) để kiểm tra thực tế — cánh cửa mở 90° chạm/áp sát mặt tủ áo, xem hình để cân nhắc có cần chừa khe hay giữ nguyên.</li>
-        <li><b>Cửa sổ đầu giường</b> giữa tường 3,0 m: rộng 1,14 m, cách đều mỗi bên 0,94 m (đáy cách sàn 0,8 m, cao 1,52 m).</li>
-        <li><b>Cửa sổ bàn máy tính</b> trên tường 4,0 m: rộng 1,14 m, cách đều mỗi bên 1,5 m, đáy cách sàn 0,8 m — cùng chiều cao và cùng mép trên/dưới với cửa sổ đầu giường. Điều hoà treo tường cạnh cửa sổ, đèn giữ nguyên theo ảnh thực tế. Góc kệ hở thêm phía trên bàn máy tính theo ảnh mẫu.</li>
-        <li><b>Tường sơn ghi</b>, gỗ phối theo tường ở 2 bản sáng và tối.</li>
-      </ol>
+      <h2>Thông số thi công</h2>
+      <p class="note unit">Đơn vị: <b>mm</b>. Cao độ tính từ mặt sàn. Thợ đo lại thực tế trước khi cắt ván.</p>
+      <button class="planBtn" id="openPlan" type="button" aria-label="Phóng to mặt bằng">
+        <svg class="plan" id="plan" viewBox="-420 -440 4840 3960" role="img" aria-label="Mặt bằng bố trí có kích thước">
+          <rect class="p-room" x="0" y="0" width="4000" height="3000"/>
+          <rect class="p-wall" x="-50" y="-50" width="4100" height="3100"/>
+          <rect class="p-gap" x="100" y="2940" width="800" height="120"/>
+          <rect class="p-win" x="1500" y="-60" width="1140" height="120"/>
+          <rect class="p-win" x="3940" y="940" width="120" height="1140"/>
+          <path class="p-swing" d="M100 3000 L100 2200 M900 3000 A800 800 0 0 0 100 2200"/>
+          <rect class="p-f" x="0" y="0" width="500" height="500"/>
+          <rect class="p-f" x="0" y="500" width="500" height="1500"/>
+          <rect class="p-f" x="500" y="0" width="700" height="500"/>
+          <rect class="p-f" x="1200" y="0" width="710" height="500"/>
+          <rect class="p-f" x="1920" y="0" width="2080" height="1800"/>
+          <rect class="p-acc" x="3920" y="0" width="80" height="1800"/>
+          <rect class="p-f p-dash" x="3520" y="1840" width="440" height="520"/>
+          <rect class="p-f" x="1500" y="2400" width="2500" height="600"/>
+          <path class="p-f" d="M1500 2400 L1350 2400 A250 250 0 0 0 1100 2650 L1100 3000 L1500 3000 Z"/>
+          <path class="p-line" d="M2000 2400V3000M2500 2400V3000M3000 2400V3000M3500 2400V3000"/>
+          <text x="250" y="270">Tủ góc</text>
+          <text transform="translate(250 1250) rotate(-90)">Bàn máy tính 1500</text>
+          <text x="850" y="230">Bàn</text><text x="850" y="380">phấn 700</text>
+          <text x="1555" y="230">Kệ thấp</text><text x="1555" y="380">710</text>
+          <text x="2950" y="860">Giường</text><text x="2950" y="1030">1800 × 2000</text>
+          <text x="3740" y="2140" class="p-sm">Tủ đ.giường</text>
+          <text x="2750" y="2760">Tủ áo 5 × 500</text>
+          <text x="1300" y="2860" class="p-sm">Kệ 400</text>
+          <text x="500" y="2700" class="p-sm">Cửa 800</text>
+          <text x="2070" y="-110" class="p-sm">Cửa sổ 1140</text>
+          <text transform="translate(4200 1510) rotate(90)" class="p-sm">Cửa sổ 1140</text>
+          <g class="p-dim">
+            <path d="M0 -300H4000M0 -350V-250M4000 -350V-250"/>
+            <text x="2000" y="-330">4000</text>
+            <path d="M-300 0V3000M-350 0H-250M-350 3000H-250"/>
+            <text transform="translate(-330 1500) rotate(-90)">3000</text>
+            <path d="M0 3300H4000M0 3250V3350M100 3250V3350M900 3250V3350M4000 3250V3350"/>
+            <text x="500" y="3430">800</text><text x="2450" y="3430">3100</text><text x="50" y="3200" class="p-sm">100</text>
+            <path d="M1100 2300H4000M1100 2250V2350M4000 2250V2350"/>
+            <text x="1700" y="2270">2900</text>
+            <path d="M2600 1800V2400"/>
+            <text x="2700" y="2140" class="p-sm">600</text>
+          </g>
+        </svg>
+        <span class="planHint">Mặt bằng nhìn từ trên · bấm để phóng to</span>
+      </button>
     </section>
 
-    <section>
-      <h2>Kích thước dùng để dựng</h2>
-      <dl>
-        <dt>Phòng (ngang × sâu × cao) — đo thực tế</dt><dd>4,0 × 3,0 × 3,0 m</dd>
-        <dt>Giường (R × D) — cao giường / đầu giường</dt><dd>1,8 × 2,0 m — 0,4 / 0,77 m</dd>
-        <dt>Tủ áo 4 cánh × 0,5 m (ngang × sâu × cao)</dt><dd>2,0 × 0,6 × 3,0 m</dd>
-        <dt>+ kệ trang trí bo góc (ngang)</dt><dd>0,2 m</dd>
-        <dt>Bàn máy tính (dài × sâu), mặt bàn cao 0,77 m</dt><dd>~1,58 × 0,5 m</dd>
-        <dt>Tủ góc chữ L: quầy + cửa bo tròn (ngang × sâu × cao)</dt><dd>0,5 × 0,5 × 0,77 m</dd>
-        <dt>Kệ hở phía bàn trang điểm (ngang × sâu × cao)</dt><dd>0,4 × 0,5 × 1,52 m</dd>
-        <dt>Bàn trang điểm (dài × sâu), mặt bàn cao 0,77 m</dt><dd>0,7 × 0,5 m</dd>
-        <dt>Lối đi đuôi giường ↔ tủ áo</dt><dd>1,32 m</dd>
-        <dt>Cửa phòng (R × C × dày), sát góc tủ áo</dt><dd>0,8 × 2,08 × 0,04 m</dd>
-        <dt>Cửa sổ đầu giường, giữa tường 3,0 m</dt><dd>1,14 × 1,52 m — lề 0,94 m, đáy 0,8 m</dd>
-        <dt>Cửa sổ bàn máy tính, trên tường 4,0 m</dt><dd>1,14 × 1,52 m — lề 1,5 m, đáy 0,8 m</dd>
-      </dl>
-      <p class="note">Số đo lấy theo thực tế phòng và các thông số đã chốt. Cửa phòng đã đẩy sát góc (cạnh tủ áo) để kiểm tra va chạm — xem hình 3D. Lề cửa sổ bàn máy tính 1,5 m mỗi bên cộng bề rộng cửa sổ dư 14cm so với tường 4,0 m (150+150+114=414cm); đã giữ lề bên trái đúng 1,5 m theo số đo, lề bên phải sẽ hụt khoảng 14cm — báo lại nếu cần chỉnh.</p>
+    <section class="specs">
+      <details open>
+        <summary>Phòng, cửa, cửa sổ</summary>
+        <table class="spec">
+          <tr><th>Phòng (ngang × sâu × cao)</th><td>4000 × 3000 × 3000</td></tr>
+          <tr><th>Tường cửa: góc trái + cửa + tới tường đầu giường</th><td>100 + 800 + 3100</td></tr>
+          <tr><th>Cửa phòng (rộng × cao × dày), mở vào trong, bản lề phía tường trái</th><td>800 × 2080 × 40</td></tr>
+          <tr><th>Cửa sổ tường đầu giường (rộng × cao)</th><td>1140 × 1520</td></tr>
+          <tr><th>— cách tường cửa sổ bàn / đáy cách sàn</th><td>940 / 800</td></tr>
+          <tr><th>Cửa sổ tường bàn (rộng × cao)</th><td>1140 × 1520</td></tr>
+          <tr><th>— cách tường trái / đáy cách sàn</th><td>1500 / 800</td></tr>
+          <tr><th>Điều hoà: cách tường trái / cao độ đáy</th><td>1270 / 2460</td></tr>
+        </table>
+      </details>
+
+      <details open>
+        <summary>Tủ áo — dựa tường cửa, từ góc đầu giường</summary>
+        <table class="spec">
+          <tr><th>Tổng dài (tủ 2500 + kệ bo góc 400)</th><td>2900</td></tr>
+          <tr><th>Sâu × cao (kịch trần)</th><td>600 × 3000</td></tr>
+          <tr><th>Đầu tủ cách nẹp khung cửa phòng</th><td>140</td></tr>
+          <tr><th>Tủ dưới / tủ nóc (cao)</th><td>2200 / 800</td></tr>
+          <tr><th>Số cột × rộng cánh</th><td>5 × 500</td></tr>
+          <tr><th>Rãnh ngang âm (móc tay) / khe đứng</th><td>30 / 4</td></tr>
+          <tr class="grp"><th colspan="2">Chia cánh, đánh số từ góc đầu giường</th></tr>
+          <tr><th>Cột 1: khoang tủ đầu giường (lọt lòng R × C × S)</th><td>480 × 520 × 560</td></tr>
+          <tr><th>Cột 1: 1 cánh liền</th><td>530 → 2170</td></tr>
+          <tr><th>Cột 2, cột 3: mỗi cột 2 cánh bằng nhau</th><td>10 → 1075 · 1105 → 2170</td></tr>
+          <tr><th>Cột 4–5: 2 ngăn kéo chung, rộng 1000</th><td>10 → 310 · 340 → 630</td></tr>
+          <tr><th>Cột 4–5: mỗi cột 1 cánh cao</th><td>660 → 2170</td></tr>
+          <tr><th>Tủ nóc: 5 cánh</th><td>2200 → 2990</td></tr>
+          <tr class="grp"><th colspan="2">Kệ trang trí bo góc (đầu phía cửa)</th></tr>
+          <tr><th>Rộng × sâu, bo góc ngoài</th><td>400 × 600 · R250</td></tr>
+          <tr><th>Hộc kín dưới / hộc kín trên</th><td>0 → 740 · 2200 → 3000</td></tr>
+          <tr><th>Đợt kệ hở (dày 25) ở cao độ</th><td>1120 · 1520 · 1920</td></tr>
+        </table>
+      </details>
+
+      <details open>
+        <summary>Tủ đầu giường di động</summary>
+        <table class="spec">
+          <tr><th>Rộng × sâu × cao (kể cả bánh xe 40)</th><td>440 × 520 × 480</td></tr>
+          <tr><th>Hở so với khoang: mỗi bên / sâu / trên</th><td>20 / 40 / 40</td></tr>
+          <tr><th>2 tầng hở quay về đuôi giường (tầng dưới / trên)</th><td>190 / 185</td></tr>
+          <tr><th>Mặt trên gỗ sồi (dày)</th><td>25</td></tr>
+        </table>
+        <p class="note">Mặt quay về giường là tấm cùng màu cánh tủ áo; đẩy vào thì che kín khoang.</p>
+      </details>
+
+      <details open>
+        <summary>Giường</summary>
+        <table class="spec">
+          <tr><th>Rộng × dài (đặt đầu tựa tường cửa sổ, thành áp tường bàn)</th><td>1800 × 2000</td></tr>
+          <tr><th>Cao mặt đệm / cao đầu giường</th><td>400 / 770</td></tr>
+          <tr><th>Đầu giường dày</th><td>80</td></tr>
+          <tr><th>Thành giường cách mặt tủ áo (lối đi)</th><td>600</td></tr>
+        </table>
+      </details>
+
+      <details open>
+        <summary>Cụm bàn chữ L — góc tường trái × tường cửa sổ</summary>
+        <table class="spec">
+          <tr class="grp"><th colspan="2">Tủ góc</th></tr>
+          <tr><th>Rộng × sâu × cao mặt quầy</th><td>500 × 500 × 770</td></tr>
+          <tr><th>Cánh bo tròn phía bàn máy tính</th><td>R140</td></tr>
+          <tr class="grp"><th colspan="2">Tủ kính trên tủ góc (cánh kính quay về bàn phấn)</th></tr>
+          <tr><th>Rộng (theo tường trái) × sâu</th><td>400 × 500</td></tr>
+          <tr><th>Từ mặt quầy lên tới</th><td>770 → 1520</td></tr>
+          <tr><th>Đợt kệ trong ở cao độ</th><td>950 · 1140 · 1330</td></tr>
+          <tr><th>Khung cánh kính (bản rộng)</th><td>30</td></tr>
+          <tr class="grp"><th colspan="2">Bàn máy tính (dọc tường trái)</th></tr>
+          <tr><th>Dài × sâu × cao mặt bàn</th><td>1500 × 500 × 770</td></tr>
+          <tr><th>Vị trí: cách tường cửa sổ</th><td>500 → 2000</td></tr>
+          <tr><th>Hộc 3 ngăn kéo ở đầu phía cửa (rộng)</th><td>400</td></tr>
+          <tr><th>Góc kệ treo: 2 đợt, dài 360, bo R80, ở cao độ</th><td>1000 · 1220</td></tr>
+          <tr class="grp"><th colspan="2">Bàn phấn (dọc tường cửa sổ)</th></tr>
+          <tr><th>Dài × sâu × cao mặt bàn</th><td>700 × 500 × 770</td></tr>
+          <tr><th>Vị trí: cách tường trái</th><td>500 → 1200</td></tr>
+          <tr><th>Ngăn kéo mỏng dưới mặt bàn (cao)</th><td>100</td></tr>
+          <tr><th>Gương oval (rộng × cao), tâm cao</th><td>400 × 640 · 1130</td></tr>
+        </table>
+      </details>
+
+      <details open>
+        <summary>Kệ thấp nối bàn phấn ↔ đuôi giường</summary>
+        <table class="spec">
+          <tr><th>Dài × sâu × cao</th><td>710 × 500 × 400</td></tr>
+          <tr><th>Vị trí: cách tường trái</th><td>1200 → 1910</td></tr>
+          <tr><th>2 ngăn kéo chồng nhau</th><td>55 → 210 · 215 → 370</td></tr>
+        </table>
+      </details>
+
+      <details open>
+        <summary>Màu & vật liệu</summary>
+        <table class="spec">
+          <tr><th>Tường / trần</th><td class="txt">Hồng phấn #E6C1CB / trắng</td></tr>
+          <tr><th>Cánh tủ áo, khung bàn, thân tủ</th><td class="txt">Trắng kem #F5F0EA</td></tr>
+          <tr><th>Rãnh tủ áo, mặt bàn, mặt kệ</th><td class="txt">Gỗ sồi trắng #D8C8AF</td></tr>
+          <tr><th>Đầu giường</th><td class="txt">Nỉ be kem</td></tr>
+          <tr><th>Tay nắm (kệ thấp, tủ kính)</th><td class="txt">Đồng xước</td></tr>
+          <tr><th>Tủ áo</th><td class="txt">Cánh mở, không tay nắm</td></tr>
+        </table>
+      </details>
     </section>
   </aside>
 </div>
+
+<dialog class="planDlg" id="planDlg" aria-label="Mặt bằng phóng to">
+  <div class="planDlg-head"><b>Mặt bằng · đơn vị mm</b><button type="button" id="closePlan">Đóng</button></div>
+  <div id="planBig"></div>
+</dialog>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
@@ -193,25 +350,25 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
   const PALETTES = {
     light: {
       bg: 0xe2e4e2, exposure: 0.82,
-      wall: 0xb3b7b6, ceiling: 0xf4f4f2, floor: 0xffffff,
-      main: 0xd8c8af, second: 0xeeebe5, handle: 0x1f2022,
-      headboard: 0xb9bcb9, sheet: 0xf3f2ef, duvet: 0x9ba3a6, pillow: 0xe4e1db,
-      accent: 0x7f8f84, rug: 0xb3aea4, door: 0xc9b597, frame: 0x2b2c2e, chair: 0x8e9396,
-      names: { wall: "Ghi sáng", floor: "Đá hoa đỏ trắng", main: "Gỗ sồi trắng", second: "Trắng sứ mờ", handle: "Đen mờ", headboard: "Nỉ ghi" }
+      wall: 0xe6c1cb, ceiling: 0xffffff, floor: 0xffffff,
+      main: 0xd8c8af, second: 0xf5f0ea, handle: 0xb8955e,
+      headboard: 0xe7d9cc, sheet: 0xf6f3ef, duvet: 0xece4da, pillow: 0xf1e1e0,
+      accent: 0x9aa894, rug: 0xdccdc0, door: 0xc9b597, frame: 0x2b2c2e, chair: 0xd8c3b8,
+      names: { wall: "Hồng phấn", floor: "Đá hoa đỏ trắng", main: "Gỗ sồi trắng", second: "Trắng kem", handle: "Đồng xước", headboard: "Nỉ be kem" }
     },
     dark: {
       bg: 0x2a2c2e, exposure: 1.0,
-      wall: 0x686c6f, ceiling: 0xdedfdd, floor: 0xb0aca6,
+      wall: 0x9c7a80, ceiling: 0xffffff, floor: 0xb0aca6,
       main: 0x6f5240, second: 0x323538, handle: 0xb8955e,
       headboard: 0x45484b, sheet: 0xd9d5cd, duvet: 0x3d4043, pillow: 0x8c8379,
       accent: 0x9a7552, rug: 0x4b4947, door: 0x6f5240, frame: 0x1c1d1f, chair: 0x4a4d50,
-      names: { wall: "Ghi đậm", floor: "Đá hoa đỏ trắng (tối)", main: "Gỗ óc chó", second: "Xám than", handle: "Đồng xước", headboard: "Nỉ than" }
+      names: { wall: "Hồng đất trầm", floor: "Đá hoa đỏ trắng (tối)", main: "Gỗ óc chó", second: "Xám than", handle: "Đồng xước", headboard: "Nỉ than" }
     }
   };
   // Items the viewer can recolor: [key, label, palette default key]
   const TARGETS = [
-    ["wMain", "Tủ áo · cánh", "main"],
-    ["wSecond", "Tủ áo · khung", "second"],
+    ["wMain", "Tủ áo · cánh", "second"],
+    ["wSecond", "Tủ áo · rãnh, khung", "main"],
     ["dMain", "Bàn · mặt, cánh", "main"],
     ["dSecond", "Bàn · khung", "second"],
     ["bFrame", "Giường · khung", "second"],
@@ -222,7 +379,8 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
   ];
   const PRESETS = [
     ["Gỗ sồi trắng", 0xd8c8af], ["Sồi tự nhiên", 0xc4a27c], ["Tần bì xám", 0xa79f92], ["Gỗ óc chó", 0x6f5240],
-    ["Trắng sứ mờ", 0xeeebe5], ["Be cát", 0xd6c6ae], ["Ghi sáng", 0xb3b7b6], ["Ghi đậm", 0x686c6f],
+    ["Trắng sứ mờ", 0xeeebe5], ["Trắng kem", 0xf5f0ea], ["Be cát", 0xd6c6ae], ["Nỉ be kem", 0xe7d9cc],
+    ["Hồng phấn", 0xe6c1cb], ["Hồng đất trầm", 0x9c7a80], ["Ghi sáng", 0xb3b7b6], ["Ghi đậm", 0x686c6f],
     ["Xám than", 0x323538], ["Xanh rêu", 0x66735f], ["Xanh than", 0x3b4654], ["Hồng đất", 0xb48a7f],
     ["Đen mờ", 0x1f2022], ["Đồng xước", 0xb8955e]
   ];
@@ -311,8 +469,8 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
   M.main = std({ map: grainV, roughness: 0.55 });
   M.second = std({ roughness: 0.6 });
   M.handle = std({ roughness: 0.35, metalness: 0.6 });
-  M.wMain = std({ map: grainV, roughness: 0.55 });
-  M.wSecond = std({ roughness: 0.6 });
+  M.wMain = std({ roughness: 0.5 });                // flat handleless doors
+  M.wSecond = std({ map: grainV, roughness: 0.55 }); // wood carcass / grooves
   M.dMain = std({ map: grainV, roughness: 0.55 });
   M.dSecond = std({ roughness: 0.6 });
   M.bFrame = std({ map: grainV, roughness: 0.6 });
@@ -328,6 +486,7 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
   M.chair = std({ roughness: 0.9 });
   M.acBody = std({ color: 0xf2f2ef, roughness: 0.4 });
   M.glass = new THREE.MeshBasicMaterial({ map: skyTexture() });
+  M.glassDoor = new THREE.MeshStandardMaterial({ color: 0xdfe8ea, roughness: 0.05, metalness: 0.1, transparent: true, opacity: 0.28, depthWrite: false });
   M.outside = new THREE.MeshBasicMaterial({ color: 0x3a3936 });
   M.lamp = new THREE.MeshStandardMaterial({ color: 0xfff1dc, emissive: 0xffd9a0, emissiveIntensity: 0.9 });
   M.down = new THREE.MeshBasicMaterial({ color: 0xfff6e8 });
@@ -409,8 +568,8 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
   windowOn(gT, "x", 1.5, 2.64, 0.8, 2.32, 0, 1);
   B(1.27, 2.07, 2.52, 2.78, 0.1, 0.3, M.acBody, gT);
   B(1.27, 2.07, 2.46, 2.53, 0.1, 0.32, M.acBody, gT);
-  // bottom wall (entry door) — pushed flush into the corner to check clearance against the wardrobe
-  const D0 = 0, D1 = D0 + 0.8, DH = 2.08;
+  // bottom wall (entry door): 0.1 m to the left corner + 0.8 m door + 3.1 m to the bed-head wall = 4.0 m
+  const D0 = 0.1, D1 = D0 + 0.8, DH = 2.08;
   const gB = wallGroup(new THREE.Vector3(0, 0, -1), new THREE.Vector3(0, 0, RZ));
   if (D0 > 0.001) W(0, D0, 0, H, RZ, RZ + T, gB);
   W(D1, RX, 0, H, RZ, RZ + T, gB); W(D0, D1, DH, H, RZ, RZ + T, gB);
@@ -428,23 +587,33 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
     d.rotation.x = Math.PI / 2; d.position.set(x, H - 0.002, z); ceil.add(d);
   });
 
-  // ---------- wardrobe: 4 doors × 0.5 m = 2.0 m cabinet, sliding on the main leaf, kept clear of the door swing ----------
-  const WD = 0.6, DSEG = 0.5, WL = 4 * DSEG, SW = 0.2; // 2.0 m cabinet (4 × 0.5 m doors) + 0.2 m rounded shelf
-  B(0, WD - 0.02, 0, H, 0, WL, M.wSecond);
-  for (let i = 0; i < 4; i++) {
-    const z0 = i * DSEG + 0.002, z1 = (i + 1) * DSEG - 0.002;
-    B(WD - 0.02, WD, 0.04, 0.34, z0, z1, M.wMain);                       // drawer
-    B(WD, WD + 0.006, 0.29, 0.3, z0 + 0.12, z1 - 0.12, M.handle);        // drawer grip
-    B(WD - 0.02, WD, 2.4, H - 0.01, z0, z1, M.wMain);                    // top box
+  // ---------- wardrobe: 5 hinged doors × 0.5 m = 2.5 m cabinet, handleless — recessed wood grooves act as finger pulls ----------
+  // built in local coords (back on x = 0, running along z), then moved onto the entry-door wall from the bed-head corner
+  const wStart = furn.children.length;
+  const WD = 0.6, DSEG = 0.5, WL = 5 * DSEG, SW = 0.4; // 2.5 m cabinet (5 × 0.5 m doors) + 0.4 m rounded shelf
+  // wood carcass: its face shows through the door gaps and grooves; the first column keeps an open bay
+  // 0.52 m tall at floor level that the rolling nightstand pushes into
+  const NCAV = 0.52;
+  B(0, WD - 0.02, 0, H, DSEG, WL, M.wSecond);
+  B(0, WD - 0.02, NCAV, H, 0, DSEG, M.wSecond);
+  B(0, 0.02, 0, NCAV, 0, DSEG, M.wSecond);                // bay back
+  B(0, WD - 0.02, 0, NCAV, 0, 0.02, M.wSecond);           // bay side in the corner
+  const WTOP = 2.2; // daily-use wardrobe below, 0.8 m top box above
+  const door = (y0, y1, z0, z1) => B(WD - 0.02, WD, y0, y1, z0 + 0.002, z1 - 0.002, M.wMain);
+  // corner column: one straight door from above the nightstand bay up to the top box
+  door(NCAV + 0.01, WTOP - 0.03, 0, DSEG);
+  // second and middle columns: two equal doors split by a wood groove at mid-height
+  const SPLIT = (0.01 + WTOP - 0.03) / 2;
+  for (let i = 1; i < 3; i++) {
+    door(0.01, SPLIT - 0.015, i * DSEG, (i + 1) * DSEG);
+    door(SPLIT + 0.015, WTOP - 0.03, i * DSEG, (i + 1) * DSEG);
   }
-  // sliding doors: two overlapping panels riding a recessed top/bottom track
-  const slideMid = WL / 2;
-  B(WD - 0.035, WD - 0.014, 0.355, 2.39, 0, slideMid + 0.03, M.wMain);              // rear panel
-  B(WD - 0.014, WD, 0.36, 2.38, slideMid - 0.03, WL, M.wMain);                      // front panel
-  B(WD - 0.016, WD - 0.014, 0.6, 2.15, slideMid - 0.03, slideMid + 0.03, M.handle); // rear pull
-  B(WD - 0.002, WD, 0.6, 2.15, slideMid - 0.03, slideMid - 0.012, M.handle);        // front pull
-  B(0.01, WD - 0.01, 2.385, 2.4, 0, WL, M.wSecond);                                 // top track
-  B(0.01, WD - 0.01, 0.345, 0.36, 0, WL, M.wSecond);                                // bottom track
+  // last 2 columns: tall doors over two wide drawers, each separated by a groove
+  for (let i = 3; i < 5; i++) door(0.66, WTOP - 0.03, i * DSEG, (i + 1) * DSEG);
+  // top box above 2.4 m (out of reach for daily use): one 0.6 m door per column, opened from the groove below it
+  for (let i = 0; i < 5; i++) door(WTOP, H - 0.01, i * DSEG, (i + 1) * DSEG);
+  door(0.01, 0.31, 3 * DSEG, WL);
+  door(0.34, 0.63, 3 * DSEG, WL);
   // rounded decorative shelf at the door-side end
   const R = 0.25, sh = new THREE.Shape();
   sh.moveTo(0, -WL); sh.lineTo(WD, -WL); sh.lineTo(WD, -(WL + SW - R));
@@ -455,15 +624,21 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
     const m = new THREE.Mesh(g, mat); m.position.y = y0; m.castShadow = m.receiveShadow = true; furn.add(m); return m;
   }
   rslab(0, 0.74, M.wMain); rslab(1.12, 0.025, M.wSecond); rslab(1.52, 0.025, M.wSecond);
-  rslab(1.92, 0.025, M.wSecond); rslab(2.4, H - 2.41, M.wMain);
+  rslab(1.92, 0.025, M.wSecond); rslab(WTOP, H - WTOP - 0.01, M.wMain); // closed top lines up with the wardrobe's top box
   books(0.02, 0, 0.765, WL + 0.03, WL + SW - 0.05, true, 3);
   books(0.02, 0, 1.145, WL + 0.03, WL + SW - 0.08, true, 9);
   const vase = new THREE.Mesh(new THREE.SphereGeometry(0.07, 20, 14), BOOKS[1]);
-  vase.scale.set(1, 1.3, 1); vase.position.set(0.3, 1.545 + 0.09, WL + 0.13); vase.castShadow = true; furn.add(vase);
-  B(0, 0.012, 0, 0.08, WL + SW, RZ, M.second, gL);
+  vase.scale.set(1, 1.3, 1); vase.position.set(0.3, 1.545 + 0.09, WL + SW / 2); vase.castShadow = true; furn.add(vase);
+  // local x (depth) -> world -z, local z (length) -> world -x: back on the door wall, closed end in the bed-head corner
+  const wardG = new THREE.Group();
+  wardG.position.set(RX, 0, RZ); wardG.rotation.y = Math.PI / 2; wardG.scale.z = -1;
+  furn.children.slice(wStart).forEach(c => wardG.add(c)); furn.add(wardG);
+  const WX0 = RX - WL - SW; // wardrobe's door-side end (x = 1.1)
+  B(0, 0.012, 0, 0.08, 2.0, RZ, M.second, gL);
   if (D0 > 0.061) B(0, D0 - 0.06, 0, 0.08, RZ - 0.012, RZ, M.second, gB);
+  B(D1 + 0.06, WX0, 0, 0.08, RZ - 0.012, RZ, M.second, gB);
 
-  // ---------- entry door (opens inward toward wardrobe) ----------
+  // ---------- entry door (opens inward, folding back toward the left wall) ----------
   const pivot = new THREE.Group(); pivot.position.set(D0, 0, RZ - 0.02); scene.add(pivot);
   B(0, D1 - D0, 0.01, DH - 0.01, -0.04, 0, M.door, pivot);
   B(D1 - D0 - 0.09, D1 - D0 - 0.06, 1.0, 1.03, -0.07, 0, M.handle, pivot);
@@ -473,8 +648,11 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
   const arcFill = new THREE.Mesh(new THREE.CircleGeometry(D1 - D0, 48, 0, Math.PI / 2), M.swingFill);
   arcFill.rotation.x = -Math.PI / 2; arcFill.position.set(D0, 0.004, RZ); scene.add(arcFill);
 
-  // ---------- L desk: computer desk (outer) + low corner shelf unit (per mẫu tủ bàn chữ L, 1.4 m) + dressing table toward bed head ----------
-  const DD = 0.5;                 // depth of the desk/dressing-table run
+  // ---------- L desk: computer desk (outer) + low corner shelf unit (per mẫu tủ bàn chữ L, 1.4 m) + dressing table ----------
+  // built against the right-hand corner, then turned into the corner opposite the entry door (left wall × window wall):
+  // computer desk runs along the left wall, dressing table along the window wall
+  const dStart = furn.children.length;
+  const DD = 0.5;                // depth of the desk/dressing-table run
   const CX0 = RX - 0.5, CX1 = RX; // corner unit: counter + open shelving, 1.4 m total height
   const counterY = 0.77;
   B(CX0, CX1, 0, 0.06, 0, DD, M.dSecond);                                       // plinth
@@ -493,11 +671,17 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
   cabMesh.position.y = 0.06; cabMesh.castShadow = cabMesh.receiveShadow = true; furn.add(cabMesh);
   B(CX0 + 0.08, CX0 + 0.1, counterY - 0.32, counterY - 0.14, DD - 0.12, DD - 0.1, M.handle); // door pull near the rounded corner
   B(CX0, CX1, counterY - 0.03, counterY, 0, DD, M.dMain);                       // counter top
-  // open shelf tower facing the dressing table: narrower (0.4 m) and one tier taller
-  const SHX1 = CX1, SHX0 = CX1 - 0.4; // flush against the wall corner (x = RX), no gap
-  [0.95, 1.14, 1.33, 1.52].forEach((y, i) => B(SHX0 + 0.01, SHX1, y - 0.018, y, 0, DD - 0.02 - i * 0.06, M.dSecond));
-  B(SHX0 + 0.01, SHX0 + 0.03, counterY, 1.52, 0.01, DD - 0.02, M.dSecond);      // side upright, open (computer-desk) face
-  books(SHX0 + 0.05, SHX1 - 0.03, counterY, 0.03, 0.16, false, 21);
+  // square glass-front cabinet facing the dressing table: 0.4 m wide, full-depth shelves, top at 1.52 m
+  const SHX1 = CX1, SHX0 = CX1 - 0.4, SD = DD - 0.04, STOP = 1.52; // flush in the wall corner; SD: depth behind the door
+  [0.95, 1.14, 1.33].forEach(y => B(SHX0 + 0.03, SHX1, y - 0.018, y, 0, SD, M.dSecond));   // inner shelves
+  B(SHX0 + 0.01, SHX1, STOP - 0.025, STOP, 0, DD, M.dSecond);                    // top
+  B(SHX0 + 0.01, SHX0 + 0.03, counterY, STOP - 0.025, 0, DD, M.dSecond);         // side upright (computer-desk side)
+  [[counterY, 0.12], [0.95, 0.1], [1.14, 0.08]].forEach(([y, h]) => B(SHX0 + 0.08, SHX1 - 0.06, y, y + h, 0.05, SD - 0.06, M.pillow)); // folded towels / boxes
+  const gx0 = SHX0 + 0.03, gx1 = SHX1, gy0 = counterY + 0.005, gy1 = STOP - 0.028, gz0 = SD, gz1 = SD + 0.02, fw = 0.03;
+  [[gx0, gx0 + fw, gy0, gy1], [gx1 - fw, gx1, gy0, gy1], [gx0, gx1, gy0, gy0 + fw], [gx0, gx1, gy1 - fw, gy1]]
+    .forEach(([a, b, c, d]) => B(a, b, c, d, gz0, gz1, M.dMain));              // glass-door frame
+  B(gx0 + fw, gx1 - fw, gy0 + fw, gy1 - fw, gz0 + 0.008, gz0 + 0.012, M.glassDoor).castShadow = false; // glass pane
+  B(gx0 + 0.04, gx0 + 0.05, gy0 + 0.25, gy0 + 0.45, gz1, gz1 + 0.012, M.handle); // door pull
   // small open corner shelf nook over the computer desk, like the sample photo's wall shelving
   [[1.0, DD - 0.02], [1.22, DD - 0.1]].forEach(([y, d]) => BR(CX0 - 0.26, SHX0, y - 0.018, y, 0.01, 0.01 + d, 0.08, M.dSecond));
   [[RX - 0.18, 0.04], [RX - 0.1, 0.03]].forEach(([x, r], i) => {     // cosmetics on the counter
@@ -505,8 +689,8 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
     b.position.set(x, counterY + (0.12 + i * 0.05) / 2, 0.3); b.castShadow = true; furn.add(b);
   });
 
-  // computer desk: left edge lines up exactly with the bed foot
-  const DX0 = RX - 0.08 - 2.0, MX = (DX0 + CX0) / 2; // MX: monitor centre, under the window
+  // computer desk: 1.5 m long, ends at z = 2.0 m once turned, clear of the door swing (reaches z = 2.2 m)
+  const DX0 = CX0 - 1.5, MX = (DX0 + CX0) / 2; // MX: monitor centre, under the window
   B(DX0, CX0, 0.73, 0.77, 0, DD, M.dMain);
   B(DX0, DX0 + 0.03, 0, 0.73, 0, DD, M.dSecond);
   B(DX0 + 0.03, DX0 + 0.43, 0, 0.73, 0, DD - 0.04, M.dSecond);       // drawer pedestal
@@ -542,16 +726,19 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
   base.position.set(RX - 0.18, 0.88, 1.1); base.castShadow = true; furn.add(base);
   const shade = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.09, 0.14, 32, 1, true), M.lamp);
   shade.position.set(RX - 0.18, 1.06, 1.1); furn.add(shade);
+  const deskG = new THREE.Group();
+  deskG.position.z = RX; deskG.rotation.y = Math.PI / 2; // local (x, z) -> world (z, RX - x)
+  furn.children.slice(dStart).forEach(c => deskG.add(c)); furn.add(deskG);
 
-  // ---------- bed 1.8 x 2.0: head on right wall, headboard 0.8 m tall, bed 0.4 m tall ----------
-  const BX0 = RX - 0.08 - 2.0, BZ1 = RZ, BZ0 = BZ1 - 1.8;
-  B(RX - 0.08, RX, 0, 0.77, BZ0, RZ, M.headboard);
+  // ---------- bed 1.8 x 2.0: head on right wall, side against the window wall, headboard 0.77 m, bed 0.4 m ----------
+  const BX0 = RX - 0.08 - 2.0, BZ0 = 0, BZ1 = BZ0 + 1.8;
+  B(RX - 0.08, RX, 0, 0.77, BZ0, BZ1, M.headboard);
   B(BX0, RX - 0.08, 0.06, 0.28, BZ0, BZ1, M.bFrame);
   B(BX0 + 0.04, RX - 0.1, 0, 0.06, BZ0 + 0.04, BZ1 - 0.04, M.frame);
   B(BX0 + 0.03, RX - 0.1, 0.28, 0.4, BZ0 + 0.03, BZ1 - 0.03, M.sheet);
   B(BX0 - 0.01, RX - 0.75, 0.4, 0.46, BZ0 + 0.01, BZ1 - 0.01, M.duvet);
   B(BX0 - 0.02, BX0 + 0.48, 0.46, 0.48, BZ0, BZ1 - 0.005, M.accent);
-  B(BX0 - 0.03, BX0 + 0.48, 0.28, 0.46, BZ0 - 0.02, BZ0, M.accent);
+  B(BX0 - 0.03, BX0 + 0.48, 0.28, 0.46, BZ1, BZ1 + 0.02, M.accent);
   function pillow(x, z, sx, sy, sz, mat, tilt) {
     const p = new THREE.Mesh(new THREE.SphereGeometry(1, 28, 16), mat);
     p.scale.set(sx, sy, sz); p.position.set(x, 0.4 + sy * 0.9, z); p.rotation.z = tilt || 0;
@@ -562,8 +749,35 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
   pillow(RX - 0.3, BZm + 0.46, 0.14, 0.09, 0.38, M.pillow, 0.35);
   pillow(RX - 0.5, BZm, 0.1, 0.1, 0.22, M.accent, 0.25);
 
+  // ---------- low shelf 0.4 m tall bridging the dressing table and the bed foot ----------
+  const KX0 = 1.2, KX1 = BX0 - 0.01, KH = 0.4;
+  B(KX0, KX1, 0, 0.05, 0, DD - 0.03, M.dSecond);                    // plinth
+  B(KX0, KX1, KH - 0.025, KH, 0, DD, M.dMain);                       // top
+  B(KX1 - 0.02, KX1, 0.05, KH - 0.025, 0, DD, M.dSecond);            // side by the bed
+  B(KX0, KX1 - 0.02, 0.05, KH - 0.025, 0, 0.02, M.dSecond);          // back
+  B(KX0, KX1 - 0.02, 0.05, KH - 0.025, DD - 0.04, DD - 0.02, M.dSecond); // carcass front frame behind the drawers
+  [[0.055, 0.21], [0.215, KH - 0.03]].forEach(([y0, y1]) => {        // two pull-out drawers
+    B(KX0 + 0.003, KX1 - 0.023, y0, y1, DD - 0.02, DD, M.dMain);
+    B((KX0 + KX1) / 2 - 0.1, (KX0 + KX1) / 2 + 0.1, y1 - 0.04, y1 - 0.03, DD, DD + 0.006, M.handle);
+  });
+
   // rug
-  const rug = B(BX0 - 0.7, BX0 + 0.8, 0, 0.01, 1.05, 2.85, M.rug); rug.castShadow = false;
+  const rug = B(BX0 + 0.2, BX0 + 1.5, 0, 0.01, 1.45, 2.36, M.rug); rug.castShadow = false;
+
+  // ---------- rolling nightstand 0.5 m tall: shown pulled out beside the bed; pushes into the wardrobe's first-column bay ----------
+  // smaller than the bay (0.48 × 0.52 × 0.56 m) on every side so it rolls in freely; the white face toward the bed matches
+  // the wardrobe doors; no drawer — two open tiers facing the bed foot
+  const NX0 = RX - 0.48, NX1 = RX - 0.04, NZF = BZ1 + 0.04, NZ0 = NZF + 0.02, NZ1 = NZF + 0.52, NH = 0.48;
+  B(NX0, NX1, 0.04, NH, NZF, NZ0, M.wMain);                                      // face panel toward the bed
+  B(NX0, NX1, NH - 0.025, NH, NZ0, NZ1, M.dMain);                                // wood top
+  B(NX1 - 0.02, NX1, 0.04, NH - 0.025, NZ0, NZ1, M.dSecond);                     // side against the wall
+  B(NX0, NX1 - 0.02, 0.04, NH - 0.025, NZ1 - 0.02, NZ1, M.dSecond);              // rear end (goes in first)
+  B(NX0, NX1, 0.04, 0.06, NZ0, NZ1, M.dSecond);                                  // bottom board
+  B(NX0, NX1 - 0.02, 0.25, 0.27, NZ0, NZ1 - 0.02, M.dSecond);                    // middle shelf: two tiers
+  [[NX0 + 0.03, NZ0 + 0.03], [NX1 - 0.07, NZ0 + 0.03], [NX0 + 0.03, NZ1 - 0.07], [NX1 - 0.07, NZ1 - 0.07]]
+    .forEach(([x, z]) => B(x, x + 0.04, 0, 0.04, z, z + 0.04, M.frame));        // casters
+  B(NX0 + 0.04, NX0 + 0.3, 0.06, 0.2, NZ0 + 0.05, NZ0 + 0.32, M.rug);           // basket, lower tier
+  B(NX0 + 0.04, NX0 + 0.3, 0.27, 0.36, NZ0 + 0.06, NZ1 - 0.08, M.pillow);        // folded blanket, upper tier
 
   // ---------- lights ----------
   const hemi = new THREE.HemisphereLight(0xffffff, 0x8a8070, 0.42); scene.add(hemi);
@@ -574,23 +788,25 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
   sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.02;
   scene.add(sun, sun.target);
   [[1.1, 1.5], [2.9, 2.0]].forEach(([x, z]) => { const p = new THREE.PointLight(0xffe8cc, 0.35, 6, 2); p.position.set(x, H - 0.15, z); scene.add(p); });
-  const lampLight = new THREE.PointLight(0xffc98a, 0.35, 2.5, 2); lampLight.position.set(RX - 0.18, 1.06, 1.1); scene.add(lampLight);
+  const lampLight = new THREE.PointLight(0xffc98a, 0.35, 2.5, 2); lampLight.position.set(1.1, 1.06, 0.18); scene.add(lampLight);
 
   // ---------- labels ----------
   const LABELS = [
-    ["Tủ áo 4×0,5 m · cửa lùa", [0.3, 2.4, 1.0]],
-    ["Kệ trang trí bo góc 0,2 m", [0.3, 1.8, 2.25]],
-    ["Cửa tủ bo tròn", [3.85, 0.5, 0.2]],
-    ["Kệ hở 0,4 m · cao 1,52 m", [3.55, 1.2, 0.2]],
-    ["Góc kệ để đồ", [3.3, 1.1, 0.3]],
-    ["Bàn máy tính ~1,58 m", [2.71, 0.82, 0.2]],
-    ["Bàn trang điểm 0,5 m", [3.78, 0.82, 0.85]],
-    ["Giường 1,8 × 2,0 m · cao 0,4 m", [2.6, 0.45, 2.3]],
-    ["Đầu giường cao 0,77 m", [3.9, 0.4, 2.1]],
+    ["Tủ áo 5×0,5 m · cánh mở không tay nắm", [2.9, 2.4, 2.7]],
+    ["Kệ trang trí bo góc 0,4 m", [1.3, 1.8, 2.75]],
+    ["Cửa tủ bo tròn", [0.2, 0.5, 0.15]],
+    ["Tủ kính 0,4 m · cao 1,52 m", [0.2, 1.2, 0.45]],
+    ["Góc kệ để đồ", [0.3, 1.1, 0.7]],
+    ["Bàn máy tính 1,5 m", [0.2, 0.82, 1.25]],
+    ["Bàn trang điểm 0,5 m", [0.85, 0.82, 0.22]],
+    ["Kệ thấp 0,4 m", [1.55, 0.45, 0.3]],
+    ["Tủ đầu giường 2 tầng · đẩy vào tủ áo", [3.75, 0.6, 2.1]],
+    ["Giường 1,8 × 2,0 m · cao 0,4 m", [2.9, 0.45, 0.9]],
+    ["Đầu giường cao 0,77 m", [3.9, 0.4, 0.5]],
     ["Cửa sổ 1,14 × 1,52 m", [4.0, 1.6, 1.51], "warn"],
     ["Cửa sổ 1,14 × 1,52 m", [2.07, 1.7, 0], "warn"],
     ["Điều hoà", [1.67, 2.65, 0.2]],
-    ["Cửa 0,8 × 2,08 m — sát góc tủ", [0.4, 1.0, 3.02], "warn"]
+    ["Cửa 0,8 × 2,08 m — cách góc 0,1 m", [0.5, 1.0, 3.02], "warn"]
   ];
   const labelLayer = document.getElementById("labels");
   const labelEls = LABELS.map(([t, p, cls]) => {
@@ -677,6 +893,17 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
   try { startAsideHidden = localStorage.getItem("phong-asideHidden") === "1"; } catch (e) {}
   setAsideHidden(startAsideHidden);
 
+  // ---------- enlarge the floor plan ----------
+  const planDlg = document.getElementById("planDlg");
+  document.getElementById("openPlan").addEventListener("click", () => {
+    const big = document.getElementById("planBig");
+    big.replaceChildren(document.getElementById("plan").cloneNode(true));
+    big.firstChild.removeAttribute("id");
+    planDlg.showModal();
+  });
+  document.getElementById("closePlan").addEventListener("click", () => planDlg.close());
+  planDlg.addEventListener("click", (e) => { if (e.target === planDlg) planDlg.close(); });
+
   // ---------- collapse the color panel (handy on phones) ----------
   const toggleColors = document.getElementById("toggleColors");
   const colorBody = document.getElementById("colorBody");
@@ -693,12 +920,13 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
 
   // ---------- views ----------
   const VIEWS = [
-    ["Toàn cảnh", [5.9, 5.3, 5.8], [2.0, 0.8, 1.5]],
+    ["Toàn cảnh", [-1.9, 5.3, -2.6], [2.0, 0.8, 1.5]],
     ["Mặt bằng", [2.0, 8.4, 1.52], [2.0, 0, 1.5]],
-    ["Nhìn tủ áo", [3.6, 1.6, 2.1], [0, 1.4, 1.0]],
-    ["Nhìn bàn máy tính", [0.9, 1.6, 2.7], [3.0, 1.1, 0.3]],
-    ["Nhìn bàn trang điểm", [2.0, 1.55, 1.2], [4.0, 1.1, 0.75]],
-    ["Nhìn cửa ra vào", [3.0, 1.6, 0.8], [0.9, 1.1, 3.0]]
+    ["Nhìn tủ áo", [0.9, 1.7, 0.9], [2.6, 1.4, 3.0]],
+    ["Nhìn giường", [0.9, 1.6, 2.4], [3.0, 0.5, 0.9]],
+    ["Nhìn bàn máy tính", [2.4, 1.6, 1.4], [0, 1.1, 1.2]],
+    ["Nhìn bàn trang điểm", [1.2, 1.55, 2.2], [0.85, 1.1, 0]],
+    ["Nhìn cửa ra vào", [3.0, 1.6, 1.0], [0.6, 1.1, 3.0]]
   ];
   const viewsEl = document.getElementById("views");
   let anim = null;

@@ -190,10 +190,11 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
           <rect class="p-win" x="1500" y="-60" width="1140" height="120"/>
           <rect class="p-win" x="3940" y="940" width="120" height="1140"/>
           <path class="p-swing" d="M100 3000 L100 2200 M900 3000 A800 800 0 0 0 100 2200"/>
-          <rect class="p-f" x="0" y="0" width="500" height="500"/>
-          <rect class="p-f" x="0" y="500" width="600" height="1500"/>
-          <path class="p-f p-dash" d="M0 490 H450 V640 A100 100 0 0 1 350 740 H0 Z"/>
-          <rect class="p-f" x="500" y="0" width="910" height="600"/>
+          <rect class="p-f" x="0" y="0" width="600" height="500"/>
+          <path class="p-f" d="M0 500 H600 V1950 A50 50 0 0 1 550 2000 H0 Z"/>
+          <path class="p-f p-dash" d="M0 490 H520 V640 A100 100 0 0 1 420 740 H0 Z"/>
+          <path class="p-f" d="M600 0 H1410 V550 A50 50 0 0 1 1360 600 H600 Z"/>
+          <path class="p-f" d="M600 600 H750 A150 150 0 0 0 600 750 Z"/>
           <rect class="p-f" x="1410" y="0" width="500" height="600"/>
           <rect class="p-f" x="1920" y="0" width="2080" height="1800"/>
           <rect class="p-acc" x="3920" y="0" width="80" height="1800"/>
@@ -201,9 +202,9 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
           <rect class="p-f" x="1500" y="2400" width="2500" height="600"/>
           <path class="p-f" d="M1500 2400 L1350 2400 A250 250 0 0 0 1100 2650 L1100 3000 L1500 3000 Z"/>
           <path class="p-line" d="M2000 2400V3000M2500 2400V3000M3000 2400V3000M3500 2400V3000"/>
-          <text x="250" y="270">Tủ góc</text>
+          <text x="300" y="230">Tủ góc</text><text x="300" y="380" class="p-sm">600 × 500</text>
           <text transform="translate(300 1250) rotate(-90)">Bàn máy tính 1500 × 600</text>
-          <text x="955" y="230">Bàn</text><text x="955" y="380">phấn 910</text>
+          <text x="1005" y="230">Bàn</text><text x="1005" y="380">phấn 810</text>
           <text x="1660" y="230">Kệ thấp</text><text x="1660" y="380">500</text>
           <text x="2950" y="860">Giường</text><text x="2950" y="1030">1800 × 2000</text>
           <text x="3740" y="2140" class="p-sm">Tủ đ.giường</text>
@@ -309,17 +310,20 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
           <tr class="grp"><th colspan="2">Bàn máy tính (dọc tường trái)</th></tr>
           <tr><th>Dài × sâu × cao mặt bàn</th><td>1500 × 600 × 770</td></tr>
           <tr><th>Vị trí: cách tường cửa sổ</th><td>500 → 2000</td></tr>
-          <tr><th>Đầu phía cửa: tấm hông thẳng xuống sàn, góc vuông (dày), không ngăn kéo</th><td>40</td></tr>
+          <tr><th>Đầu phía cửa: tấm hông thẳng xuống sàn (dày), lùi 50 sau góc bo, không ngăn kéo</th><td>40</td></tr>
+          <tr><th>Góc trong chữ L (bàn máy tính ↔ bàn phấn): mặt bàn lượn cong lõm</th><td>R150</td></tr>
+          <tr><th>Góc mép ngoài tự do (đầu bàn máy tính, đầu bàn phấn): bo tròn mặt bàn</th><td>R50</td></tr>
           <tr><th>Case máy tính đặt trên bàn, sát hông tủ 4 ô (D × R × C)</th><td>380 × 190 × 447</td></tr>
           <tr><th>— case cách tường</th><td>70</td></tr>
           <tr><th>2 lỗ luồn dây trên mặt bàn: sau case + sau màn hình (đường kính)</th><td>Ø50</td></tr>
           <tr><th>Kệ gỗ treo tường (dày 25) sát hông tủ 4 ô, dài theo tường × sâu, bo góc ngoài</th><td>250 × 520 · R100</td></tr>
           <tr><th>— đáy kệ cách mặt bàn 500, cao độ đáy</th><td>1270</td></tr>
           <tr class="grp"><th colspan="2">Bàn phấn (dọc tường cửa sổ)</th></tr>
-          <tr><th>Dài × sâu × cao mặt bàn</th><td>910 × 600 × 770</td></tr>
-          <tr><th>Vị trí: cách tường trái</th><td>500 → 1410</td></tr>
-          <tr><th>Ngăn kéo mỏng dưới mặt bàn (cao)</th><td>100</td></tr>
-          <tr><th>Đầu phía kệ thấp: tấm hông thẳng xuống sàn, góc vuông (dày)</th><td>40</td></tr>
+          <tr><th>Dài × sâu × cao mặt bàn</th><td>810 × 600 × 770</td></tr>
+          <tr><th>Vị trí: cách tường trái (từ hông tủ 4 ô)</th><td>600 → 1410</td></tr>
+          <tr><th>— dải mặt bàn nối dưới tủ 4 ô, sát tủ góc (dài × sâu)</th><td>100 × 500</td></tr>
+          <tr><th>Ngăn kéo mỏng dưới mặt bàn (dài × cao)</th><td>750 × 100</td></tr>
+          <tr><th>Đầu phía kệ thấp: tấm hông thẳng xuống sàn (dày), lùi 50 sau góc bo R50</th><td>40</td></tr>
         </table>
       </details>
 
@@ -374,12 +378,13 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
       names: { wall: "Trắng ghi", floor: "Đá hoa đỏ trắng", main: "B · Gỗ sồi trắng", second: "A · Trắng sứ mờ", third: "C · Tần bì xám", handle: "Đồng xước", headboard: "Nỉ ghi be" }
     },
     dark: {
-      bg: 0x2a2c2e, exposure: 1.0,
-      wall: 0x9c7a80, ceiling: 0xffffff, floor: 0xb0aca6,
+      bg: 0x2a2c2e, exposure: 0.9,
+      // same greige-white walls as the light scheme; charcoal carcasses + walnut tops read crisply against them
+      wall: 0xe2e3e0, ceiling: 0xffffff, floor: 0xb0aca6,
       main: 0x6f5240, second: 0x323538, third: 0x4a4440, handle: 0xb8955e,
-      headboard: 0x45484b, sheet: 0xd9d5cd, duvet: 0x3d4043, pillow: 0x8c8379,
+      headboard: 0x686c6f, sheet: 0xe6e2da, duvet: 0x3d4043, pillow: 0x8c8379,
       accent: 0x9a7552, rug: 0x4b4947, door: 0x6f5240, frame: 0x1c1d1f, chair: 0x4a4d50,
-      names: { wall: "Hồng đất trầm", floor: "Đá hoa đỏ trắng (tối)", main: "Gỗ óc chó", second: "Xám than", third: "Nâu xám", handle: "Đồng xước", headboard: "Nỉ than" }
+      names: { wall: "Trắng ghi", floor: "Đá hoa đỏ trắng (tối)", main: "Gỗ óc chó", second: "Xám than", third: "Nâu xám", handle: "Đồng xước", headboard: "Nỉ ghi đậm" }
     }
   };
   // Items the viewer can recolor: [key, label, palette default key]
@@ -704,19 +709,30 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
   const DX0 = CX0 - 1.5, MX = (DX0 + CX0) / 2; // MX: monitor centre, under the window
   // no drawers: a straight 40 mm end panel down to the floor at the door-side end, square corner
   const DT = 0.04, CD = 0.6; // CD: computer desk is 600 deep, 100 deeper than the corner unit and dressing table
+  // flat top plate from a plan shape drawn as (x, -z), t thick with its underside at y0
+  function plate(shape, y0, t, mat) {
+    const g = new THREE.ExtrudeGeometry(shape, { depth: t, bevelEnabled: false, curveSegments: 32 });
+    g.rotateX(-Math.PI / 2);
+    const m = new THREE.Mesh(g, mat); m.position.y = y0; m.castShadow = m.receiveShadow = true; furn.add(m); return m;
+  }
+  // L-desk corners (per sample photo): the inner corner where the desk meets the dressing table eases through a
+  // gentle concave R150 curve; the free outer corners are rounded R50 so nobody bumps into a sharp edge
+  const LX = RX - 0.6, LR = 0.15, RC = 0.05; // LX: dressing table front edge
   // top with two Ø50 cable holes near the wall: one behind the PC tower (in its 70 gap), one behind the monitor
   const HR = 0.025, HOLES = [[(PCX0 + PCX1) / 2, PCZ0 / 2], [MX, 0.07]], ds = new THREE.Shape();
-  ds.moveTo(DX0, 0); ds.lineTo(CX0, 0); ds.lineTo(CX0, -CD); ds.lineTo(DX0, -CD); ds.closePath();
+  ds.moveTo(DX0, 0); ds.lineTo(CX0, 0); ds.lineTo(CX0, -CD); ds.lineTo(LX, -CD); ds.lineTo(LX, -(CD + LR));
+  ds.absarc(LX - LR, -(CD + LR), LR, 0, Math.PI / 2, false);         // concave curve into the dressing table
+  ds.lineTo(DX0 + RC, -CD);
+  ds.absarc(DX0 + RC, -(CD - RC), RC, 1.5 * Math.PI, Math.PI, true);  // rounded free corner at the door-side end
+  ds.closePath();
   HOLES.forEach(([x, z]) => { const h = new THREE.Path(); h.absarc(x, -z, HR, 0, 2 * Math.PI, true); ds.holes.push(h); });
-  const dg = new THREE.ExtrudeGeometry(ds, { depth: DT, bevelEnabled: false, curveSegments: 32 });
-  dg.rotateX(-Math.PI / 2);
-  const dm = new THREE.Mesh(dg, M.dMain); dm.position.y = 0.77 - DT; dm.castShadow = dm.receiveShadow = true; furn.add(dm);
+  plate(ds, 0.77 - DT, DT, M.dMain);
   const grommetMat = M.frame.clone(); grommetMat.side = THREE.DoubleSide; grommetMat.color = M.frame.color; // shared colour follows palette
   HOLES.forEach(([x, z]) => {                                        // dark grommet lining each hole
     const g = new THREE.Mesh(new THREE.CylinderGeometry(HR, HR, DT + 0.004, 32, 1, true), grommetMat);
     g.position.set(x, 0.77 - DT / 2, z); furn.add(g);
   });
-  B(DX0, DX0 + DT, 0, 0.77 - DT, 0, CD, M.dMain);                    // end panel
+  B(DX0, DX0 + DT, 0, 0.77 - DT, 0, CD - RC, M.dMain);               // end panel, set back behind the rounded corner
   B(DX0 + DT, CX0, 0.63, 0.73, CD - 0.06, CD - 0.04, M.dSecond);     // modesty rail
   B(MX - 0.25, MX + 0.25, 0.77, 0.785, 0.1, 0.26, M.frame);           // monitor
   B(MX - 0.02, MX + 0.02, 0.785, 0.96, 0.13, 0.16, M.frame);
@@ -729,13 +745,15 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
   // dressing table along the right wall, between the corner unit and the bed head
   // 600 deep like the computer desk: it starts past the desk's 600 depth; a strip in front of the 500-deep corner unit
   // fills the gap between them
-  const TX0 = RX - 0.6, TZ0 = CD, TZ1 = 1.41;
+  const TX0 = LX, TZ0 = CD, TZ1 = 1.41;
   B(CX0, RX, 0.73, 0.77, DD, TZ0, M.dMain);
   B(CX0, RX, 0.63, 0.73, DD, TZ0, M.dSecond);
-  // the end by the low shelf is a straight 40 mm end panel down to the floor, square corner like the computer desk
-  const TT = 0.04, TM = (TZ0 + TZ1 - TT) / 2;                        // TM: middle of the drawer
-  B(TX0, RX, 0.77 - TT, 0.77, TZ0, TZ1, M.dMain);                    // top
-  B(TX0, RX, 0, 0.77 - TT, TZ1 - TT, TZ1, M.dMain);                  // end panel
+  // the end by the low shelf is a straight 40 mm end panel down to the floor; the free top corner is rounded R50
+  const TT = 0.04, TM = (TZ0 + TZ1 - TT) / 2, ts = new THREE.Shape(); // TM: middle of the drawer
+  ts.moveTo(TX0, -TZ0); ts.lineTo(RX, -TZ0); ts.lineTo(RX, -TZ1); ts.lineTo(TX0 + RC, -TZ1);
+  ts.absarc(TX0 + RC, -(TZ1 - RC), RC, 1.5 * Math.PI, Math.PI, true); ts.closePath();
+  plate(ts, 0.77 - TT, TT, M.dMain);                                 // top
+  B(TX0 + RC, RX, 0, 0.77 - TT, TZ1 - TT, TZ1, M.dMain);             // end panel, set back behind the rounded corner
   B(TX0 + 0.02, RX, 0.63, 0.73, TZ0, TZ1 - TT, M.dSecond);
   B(TX0, TX0 + 0.02, 0.635, 0.725, TZ0 + 0.01, TZ1 - TT - 0.01, M.dMain); // slim drawer
   B(TX0 - 0.006, TX0, 0.67, 0.68, TM - 0.1, TM + 0.1, M.handle);
@@ -813,7 +831,7 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
     ["Case máy tính 38 × 19 × 44,7 cm", [0.25, 1.1, 0.55]],
     ["Kệ 25 × 52 cm bo góc · cách mặt bàn 50 cm", [0.3, 1.55, 0.65]],
     ["Bàn máy tính 1,5 m", [0.2, 0.82, 1.25]],
-    ["Bàn trang điểm 0,91 m · sâu 0,6 m", [0.95, 0.82, 0.32]],
+    ["Bàn trang điểm 0,81 m · sâu 0,6 m", [1.0, 0.82, 0.32]],
     ["Cánh tủ mở 90° · mặt trong là gương", [0.66, 1.75, 0.06]],
     ["Kệ thấp 0,5 × 0,4 m", [1.66, 0.45, 0.3]],
     ["Tủ đầu giường 2 tầng · đẩy vào tủ áo", [3.75, 0.6, 2.1]],
@@ -889,9 +907,7 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
   btnL.addEventListener("click", () => applyPalette("light"));
   btnD.addEventListener("click", () => applyPalette("dark"));
   document.getElementById("resetColors").addEventListener("click", () => applyPalette(palette));
-  let startPalette = "light";
-  try { if (localStorage.getItem("phong-palette") === "dark") startPalette = "dark"; } catch (e) {}
-  applyPalette(startPalette);
+  applyPalette("light");
 
   // ---------- hide/show the whole side panel (handy on phones) ----------
   const appEl = document.querySelector(".app");

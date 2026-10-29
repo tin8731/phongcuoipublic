@@ -197,8 +197,8 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
           <rect class="p-leg" x="0" y="0" width="30" height="520"/><rect class="p-leg" x="30" y="0" width="450" height="30"/>
           <path class="p-f" d="M0 520 H520 V1750 A50 50 0 0 1 470 1800 H0 Z"/>
           <path class="p-f" d="M520 0 H1410 V470 A50 50 0 0 1 1360 520 H520 Z"/>
-          <path class="p-f p-dash" d="M0 0 H520 L300 520 H0 Z" fill-opacity="0"/>
-          <path class="p-swing" d="M520 0 L304 511 A555 555 0 0 0 1075 0"/>
+          <path class="p-f p-dash" d="M0 0 H520 L410 410 L0 520 Z" fill-opacity="0"/><path class="p-line" d="M0 0 L390 390"/>
+          <path class="p-swing" d="M520 0 L413 401 A415 415 0 0 0 935 0"/>
           <rect class="p-f p-dash" x="70" y="20" width="190" height="380"/>
           <path class="p-f" d="M520 520 H670 A150 150 0 0 0 520 670 Z"/>
           <rect class="p-f" x="1410" y="0" width="500" height="470"/>
@@ -209,7 +209,7 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
           <path class="p-f" d="M1500 2400 L1220 2400 A120 120 0 0 0 1100 2520 L1100 3000 L1500 3000 Z"/>
           <path class="p-line" d="M2000 2400V3000M2500 2400V3000M3000 2400V3000M3500 2400V3000"/>
           <text x="260" y="320" class="p-sm">Mặt góc</text><text x="260" y="420" class="p-sm">520×520</text>
-          <text x="560" y="-150" class="p-sm">Tủ gương trên cao 520 × 300→520 (mặt xéo)</text>
+          <text x="560" y="-150" class="p-sm">Tủ vòm góc lục giác 520×520: cánh gương + mặt hở</text>
           <text transform="translate(300 1160) rotate(-90)">Bàn máy tính 1280 × 520</text>
           <text x="965" y="230">Bàn phấn</text><text x="965" y="380">890 × 520</text>
           <text x="1660" y="230">Kệ thấp</text><text x="1660" y="380" class="p-sm">500×470</text>
@@ -277,7 +277,7 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
           <tr><th>Tủ nóc: 5 cánh</th><td>2200 → 2990</td></tr>
           <tr class="grp"><th colspan="2">Hốc móc treo đồ bo góc (đầu phía cửa)</th></tr>
           <tr><th>Rộng × sâu, bo góc ngoài</th><td>400 × 600 · R120</td></tr>
-          <tr><th>Hộc kín dưới / hộc kín trên</th><td>0 → 740 · 2200 → 3000</td></tr>
+          <tr><th>Hộc kín dưới / hộc kín trên</th><td>0 → 740 · 2200 → 2990</td></tr>
           <tr><th>Hộc dưới: 2 ngăn kéo mở về phía cửa, rộng 465 (phần phẳng trước góc bo), rãnh móc tay 30</th><td>10 → 350 · 380 → 710</td></tr>
           <tr><th>Hốc hở, không vách sau (lộ tường), mở phía cửa (lọt lòng cao)</th><td>760 → 2180</td></tr>
           <tr><th>4 móc treo đồng gắn hông tủ áo (bên trái hốc), cao độ</th><td>1720</td></tr>
@@ -292,7 +292,8 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
           <tr><th>Rộng × sâu × cao (kể cả bánh xe 40)</th><td>440 × 520 × 480</td></tr>
           <tr><th>Hở so với khoang: mỗi bên / sâu / trên</th><td>20 / 40 / 40</td></tr>
           <tr><th>2 tầng hở thông 2 mặt — không ốp lưng (tầng dưới / trên)</th><td>190 / 185</td></tr>
-          <tr><th>Mặt trên gỗ sồi (dày)</th><td>25</td></tr>
+          <tr><th>Mặt trên (mã B, dày) / ván đáy, ván giữa (dày)</th><td>25 / 20</td></tr>
+          <tr><th>4 bánh xe (cao), đặt cách mép thân</th><td>40 · 30</td></tr>
         </table>
         <p class="note">Mặt quay về giường là tấm cùng màu cánh tủ áo; đẩy vào thì che kín khoang.</p>
       </details>
@@ -319,19 +320,25 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
           <tr><th>— mặt hướng bàn máy tính để hở, đặt case từ phía này; đèn LED hắt ấm dưới mặt</th><td class="txt">Hở</td></tr>
           <tr><th>— đế gỗ để case (dọc tường cửa sổ × dọc tường trái × dày), sát hai tường</th><td>480 × 500 × 30</td></tr>
           <tr><th>— dải đèn LED hắt ấm dưới mặt quầy (dài), cách tường cửa sổ 350</th><td>430</td></tr>
-          <tr class="grp"><th colspan="2">Tủ 4 ô trên mặt góc (cánh quay về bàn phấn, mặt trong là gương)</th></tr>
-          <tr><th>Rộng (theo tường trái) × sâu phía bàn máy tính</th><td>520 × 300</td></tr>
-          <tr><th>Mặt trước xéo: sâu phía bàn máy tính → sâu sát tường cửa sổ</th><td>300 → 520</td></tr>
-          <tr><th>Từ mặt quầy lên tới (đáy mặt quầy tủ đặt sát mặt góc)</th><td>770 → 2055</td></tr>
-          <tr><th>Ván nóc dày / ván kệ trong dày / ván hông phía bàn máy tính dày</th><td>25 / 18 / 20</td></tr>
-          <tr><th>4 ô, mỗi ô lọt lòng (cao)</th><td>300</td></tr>
-          <tr><th>Đợt kệ trong (hình thang, lùi 40 sau cánh) ở cao độ</th><td>1090 · 1410 · 1730</td></tr>
-          <tr><th>Cánh gỗ đặc chạy theo mặt xéo (R × C), dày 20, bản lề ở góc tường cửa sổ</th><td>555 × 1250</td></tr>
-          <tr><th>— không tay nắm: rãnh âm đứng chạy suốt chiều cao ở cạnh tự do (rộng × sâu)</th><td>30 × 12</td></tr>
-          <tr><th>Gương 5 mm dán mặt trong cánh (R × C)</th><td>515 × 1210</td></tr>
-          <tr><th>Mở ~108°: cánh áp tường cửa sổ, gương quay ra bàn phấn (bản lề góc mở 110°)</th><td>520 → 1075</td></tr>
-          <tr><th>— tâm gương, cách tường trái</th><td>797</td></tr>
-          <tr><th>Mặt bàn phấn phía trước cánh để trống (vùng quét cánh)</th><td>R555</td></tr>
+          <tr class="grp"><th colspan="2">Tủ vòm góc trên mặt góc — mặt bằng kiểu 1 góc lục giác, vách chéo chia đôi 2 ngăn tam giác</th></tr>
+          <tr><th>Chiếm mặt góc dọc tường trái × dọc tường cửa sổ, từ mặt quầy lên tới (nóc ngang vạch tủ nóc tủ áo)</th><td>520 × 520 · 770 → 2200</td></tr>
+          <tr><th>2 mặt trước gặp nhau góc 120° (mỗi mặt lệch 15° so với tường), đỉnh góc cách tường trái / tường cửa sổ</th><td>410 / 410</td></tr>
+          <tr><th>— mặt quay về bàn phấn: từ tường cửa sổ cách tường trái 520 → đỉnh góc (dài)</th><td>425</td></tr>
+          <tr><th>— mặt quay về bàn máy tính: từ tường trái cách tường cửa sổ 520 → đỉnh góc (dài)</th><td>425</td></tr>
+          <tr><th>Ván nóc mã D dày 25, cao độ 2175 → 2200; cắt 4 đỉnh (cách tường trái, cách tường cửa sổ): góc tường · (520, 0) · (410, 410) · (0, 520)</th><td>25</td></tr>
+          <tr><th>Vách chéo mã E chạy theo đường chéo góc, từ góc tường tới điểm (390, 390) — lùi 28 sau đỉnh góc (dài × cao × dày), cao độ 770 → 2175</th><td>552 × 1405 × 18</td></tr>
+          <tr><th>Đợt kệ mã E dày 18, tam giác, lùi 40 sau mặt trước: cạnh áp tường / đỉnh trước cách 2 tường (cắt trừ nửa vách 9)</th><td>479 / 377</td></tr>
+          <tr><th>Lót mã E áp tường trái + tường cửa sổ + mặt quầy trong lòng tủ (dày)</th><td>9</td></tr>
+          <tr><th>Ngăn phía bàn phấn: 4 ô, đợt kệ mặt trên ở cao độ (LED dưới mỗi đợt + dưới nóc, sát tường cửa sổ)</th><td>1130 · 1490 · 1850</td></tr>
+          <tr><th>Ngăn phía bàn máy tính: 3 ô, đợt kệ mặt trên ở cao độ (LED dưới mỗi đợt + dưới nóc, sát tường trái)</th><td>1250 · 1720</td></tr>
+          <tr><th>Mặt phía bàn máy tính: hở, không cánh — tấm khung mặt mã D (R × C × dày), cao độ 770 → 2200</th><td>425 × 1430 × 20</td></tr>
+          <tr><th>— khoét ô vòm bán nguyệt, khung bản 50 (R × C, bán kính vòm), cao độ 820 → 2150</th><td>325 × 1330 · R162</td></tr>
+          <tr><th>Mặt phía bàn phấn: 1 cánh mã D (R × C), dày 20, cao độ 775 → 2172, bản lề phía tường cửa sổ, nhấn mở (không tay nắm)</th><td>413 × 1397</td></tr>
+          <tr><th>— mặt ngoài: khung bản 50, ô vòm bán nguyệt ốp mã E lõm 8 (R × C, bán kính vòm)</th><td>313 × 1297 · R156</td></tr>
+          <tr><th>Gương 5 mm dán mặt trong cánh, đầu vòm bán nguyệt, cách mép cánh 20 (R × C)</th><td>373 × 1357</td></tr>
+          <tr><th>Mở ~105°: cánh áp tường cửa sổ, gương quay ra bàn phấn (bản lề góc mở 110°)</th><td>520 → 935</td></tr>
+          <tr><th>— tâm gương, cách tường trái</th><td>728</td></tr>
+          <tr><th>Mặt bàn phấn phía trước cánh để trống (vùng quét cánh)</th><td>R415</td></tr>
           <tr class="grp"><th colspan="2">Bàn máy tính (dọc tường trái)</th></tr>
           <tr><th>Dài × sâu × cao mặt bàn (mặt dày 40)</th><td>1280 × 520 × 770</td></tr>
           <tr><th>Vị trí: cách tường cửa sổ</th><td>520 → 1800</td></tr>
@@ -348,7 +355,7 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
           <tr class="grp"><th colspan="2">Bàn phấn (dọc tường cửa sổ)</th></tr>
           <tr><th>Dài × sâu × cao mặt bàn (mặt dày 40)</th><td>890 × 520 × 770</td></tr>
           <tr><th>Vị trí: cách tường trái</th><td>520 → 1410</td></tr>
-          <tr><th>Thân hộc ngăn kéo dưới mặt bàn: cao độ 630 → 730, dài từ cách tường trái 520 tới 1370 (sau tấm hông)</th><td>850 × 480 × 100</td></tr>
+          <tr><th>Thân hộc ngăn kéo dưới mặt bàn: cao độ 630 → 730, dài từ cách tường trái 520 tới 1370 (sau tấm hông), sâu từ tường cửa sổ tới sau mặt ngăn</th><td>850 × 500 × 100</td></tr>
           <tr><th>Ngăn kéo mỏng, bắt đầu sau chỗ cong R150 (dài × cao, gồm rãnh âm 30 phía trên, dày 20)</th><td>680 × 90</td></tr>
           <tr><th>— vị trí mặt ngăn, cách tường trái</th><td>680 → 1360</td></tr>
           <tr><th>Đầu phía kệ thấp: tấm hông thẳng xuống sàn (dày), lùi 50 sau góc bo R50</th><td>40</td></tr>
@@ -364,6 +371,8 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
           <tr><th>— thụt vào so với mép mặt bàn phấn (sâu 520)</th><td>50</td></tr>
           <tr><th>Vị trí: cách tường trái</th><td>1410 → 1910</td></tr>
           <tr><th>2 ngăn kéo chồng nhau, mỗi ngăn có rãnh âm 30 phía trên</th><td>55 → 210 · 215 → 370</td></tr>
+          <tr><th>Mặt trên mã B (dày) / chân đế lùi 30 (cao)</th><td>25 / 50</td></tr>
+          <tr><th>Mặt ngăn kéo (dài × dày), hở 3 mỗi bên</th><td>474 × 20</td></tr>
         </table>
       </details>
 
@@ -371,16 +380,20 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
         <summary>Màu & vật liệu</summary>
         <table class="spec">
           <tr><th>Tường / trần</th><td class="txt">Ốp nhựa HD03 (400 × 9 × 3000) trắng lạnh #E6E9EC / trắng</td></tr>
-          <tr class="grp"><th colspan="2">Gỗ công nghiệp phủ bề mặt — 3 mã màu</th></tr>
-          <tr><th>A · Cánh + thân tủ áo, khung bàn, tủ 4 ô, tủ đầu giường, kệ thấp (thân)</th><td class="txt">Nỉ ghi be #CFC6BA · melamine mờ</td></tr>
-          <tr><th>B · Mặt bàn máy tính, bàn phấn, mặt kệ thấp, mặt ngăn kéo, mặt ngăn cong góc R150, mặt quầy góc + tấm gỗ đứng + thanh đỡ + đế case, cánh tủ 4 ô</th><td class="txt">Nỉ ghi be #CFC6BA · laminate (HPL) mịn, không vân, cùng màu cánh tủ áo</td></tr>
-          <tr><th>C · Rãnh móc tay (tủ áo, ngăn kéo bàn, kệ thấp, cánh tủ 4 ô) + hốc móc treo tủ áo</th><td class="txt">Đen tím sẫm #13060A · melamine mờ (rãnh móc tay, hốc móc treo); khung giường Nỉ ghi be #CFC6BA</td></tr>
+          <tr class="grp"><th colspan="2">Gỗ công nghiệp phủ bề mặt — 5 mã, 2 màu (Nỉ ghi be #CFC6BA · Ghi tím than #2F2932)</th></tr>
+          <tr><th>A · Cánh tủ áo, hộc kín hốc móc treo, khung bàn, tủ đầu giường (thân + mặt quay về giường), kệ thấp (thân)</th><td class="txt">Nỉ ghi be #CFC6BA · melamine mờ</td></tr>
+          <tr><th>B · Mặt bàn máy tính, bàn phấn, mặt kệ thấp, mặt tủ đầu giường, mặt ngăn kéo, mặt ngăn cong góc R150, mặt quầy góc + tấm gỗ đứng + thanh đỡ + đế case</th><td class="txt">Nỉ ghi be #CFC6BA · laminate (HPL) mịn, không vân, cùng màu cánh tủ áo</td></tr>
+          <tr><th>C · Thân tủ áo (lộ ở khe + rãnh móc tay), rãnh móc tay ngăn kéo bàn + kệ thấp, sàn / trần / kệ hốc móc treo</th><td class="txt">Ghi tím than #2F2932 · melamine mờ</td></tr>
+          <tr><th>D · Tủ vòm góc: ván nóc, tấm khung mặt hở, cánh</th><td class="txt">Nỉ ghi be #CFC6BA · laminate mờ, cùng màu cánh tủ áo</td></tr>
+          <tr><th>E · Tủ vòm góc: vách chéo, lót lòng tủ, đợt kệ, ô vòm mặt ngoài cánh</th><td class="txt">Ghi tím than #2F2932 · melamine vân gỗ</td></tr>
+          <tr><th>Khung giường</th><td class="txt">Nỉ ghi be #CFC6BA</td></tr>
           <tr><th>Nẹp chỉ cạnh</th><td class="txt">Cùng mã với mặt gỗ</td></tr>
           <tr><th>Cốt gỗ</th><td class="txt">MDF lõi xanh chống ẩm</td></tr>
           <tr><th>Đầu giường</th><td class="txt">Nỉ ghi be #CFC6BA</td></tr>
-          <tr><th>Tay nắm (ngăn kéo bàn, kệ thấp, cánh tủ 4 ô)</th><td class="txt">Không dùng: rãnh âm móc tay 30 sâu 12, giống tủ áo</td></tr>
-          <tr><th>Cửa ra vào + khung nẹp cửa</th><td class="txt">Đen tím sẫm #13060A · sơn PU mịn, không vân</td></tr>
-          <tr><th>Khung cửa sổ (2 cửa sổ)</th><td class="txt">Đen tím sẫm #13060A · cố định, cùng màu cửa ra vào mặc định</td></tr>
+          <tr><th>Tay nắm (ngăn kéo bàn, kệ thấp)</th><td class="txt">Không dùng: rãnh âm móc tay 30 sâu 12, giống tủ áo</td></tr>
+          <tr><th>Cánh tủ vòm góc</th><td class="txt">Không tay nắm: bản lề giảm chấn góc mở 110° + nút nhấn mở</td></tr>
+          <tr><th>Cửa ra vào + khung nẹp cửa</th><td class="txt">Ghi tím than #2F2932 · sơn PU mịn, không vân</td></tr>
+          <tr><th>Khung cửa sổ (2 cửa sổ)</th><td class="txt">Ghi tím than #2F2932 · cố định, cùng màu cửa ra vào mặc định</td></tr>
           <tr><th>Tủ áo</th><td class="txt">Cánh mở, không tay nắm</td></tr>
         </table>
       </details>
@@ -404,11 +417,12 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
     light: {
       bg: 0xe2e4e2, exposure: 0.82,
       wall: 0xe6e9ec, ceiling: 0xffffff, floor: 0xffffff,
-      // chosen scheme: one warm grey-beige felt tone (#CFC6BA) for every carcass, top, door and the bed, with near-black #13060A grooves
-      main: 0xcfc6ba, second: 0xcfc6ba, third: 0x13060a, bedFrame: 0xcfc6ba, handle: 0xb8955e,
+      // chosen scheme: one warm grey-beige felt tone (#CFC6BA) for every carcass, top, door and the bed, with dark aubergine-grey #2F2932 grooves, door and arched-cabinet lining
+      main: 0xcfc6ba, second: 0xcfc6ba, third: 0x2f2932, bedFrame: 0xcfc6ba, handle: 0xb8955e,
       headboard: 0xcfc6ba, sheet: 0xf6f3ef, duvet: 0xece4da, pillow: 0xefe8df,
-      accent: 0x9aa894, rug: 0xdccdc0, door: 0x13060a, frame: 0x2b2c2e, chair: 0xc8c6c1,
-      names: { wall: "Nhựa ốp HD03", floor: "Đá hoa đỏ trắng", main: "Nỉ ghi be", second: "Nỉ ghi be", third: "Tuỳ chọn #13060A", bedFrame: "Nỉ ghi be", handle: "Đồng xước", headboard: "Nỉ ghi be", door: "Đen tím sẫm" }
+      accent: 0x9aa894, rug: 0xdccdc0, door: 0x2f2932, frame: 0x2b2c2e, chair: 0xc8c6c1,
+      vFrame: 0xcfc6ba, vInner: 0x2f2932,
+      names: { wall: "Nhựa ốp HD03", floor: "Đá hoa đỏ trắng", main: "Nỉ ghi be", second: "Nỉ ghi be", third: "Ghi tím than", bedFrame: "Nỉ ghi be", handle: "Đồng xước", headboard: "Nỉ ghi be", door: "Ghi tím than", vFrame: "Nỉ ghi be", vInner: "Ghi tím than" }
     },
     dark: {
       bg: 0x2a2c2e, exposure: 0.9,
@@ -416,8 +430,9 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
       wall: 0xe6e9ec, ceiling: 0xffffff, floor: 0xb0aca6,
       main: 0x6f5240, second: 0x323538, third: 0x4a4440, bedFrame: 0x4a4440, handle: 0xb8955e,
       headboard: 0x686c6f, sheet: 0xe6e2da, duvet: 0x3d4043, pillow: 0x8c8379,
-      accent: 0x9a7552, rug: 0x4b4947, door: 0x13060a, frame: 0x1c1d1f, chair: 0x4a4d50,
-      names: { wall: "Nhựa ốp HD03", floor: "Đá hoa đỏ trắng (tối)", main: "Gỗ óc chó", second: "Xám than", third: "Nâu xám", bedFrame: "Nâu xám", handle: "Đồng xước", headboard: "Nỉ ghi đậm", door: "Đen tím sẫm" }
+      accent: 0x9a7552, rug: 0x4b4947, door: 0x2f2932, frame: 0x1c1d1f, chair: 0x4a4d50,
+      vFrame: 0xcfc6ba, vInner: 0x2f2932,
+      names: { wall: "Nhựa ốp HD03", floor: "Đá hoa đỏ trắng (tối)", main: "Gỗ óc chó", second: "Xám than", third: "Nâu xám", bedFrame: "Nâu xám", handle: "Đồng xước", headboard: "Nỉ ghi đậm", door: "Ghi tím than", vFrame: "Nỉ ghi be", vInner: "Ghi tím than" }
     }
   };
   // Items the viewer can recolor: [key, label, palette default key]
@@ -426,6 +441,8 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
     ["wSecond", "Tủ áo · rãnh, khung", "third"],
     ["dMain", "Bàn · mặt, cánh", "main"],
     ["dSecond", "Bàn · khung", "second"],
+    ["vFrame", "Tủ vòm · khung, cánh", "vFrame"],
+    ["vInner", "Tủ vòm · lòng gỗ", "vInner"],
     ["bFrame", "Giường · khung", "bedFrame"],
     ["headboard", "Đầu giường", "headboard"],
     ["door", "Cửa ra vào", "door"],
@@ -438,7 +455,7 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
     ["Trắng tuyết mờ", 0xeeefed], ["Trắng sứ mờ", 0xeeebe5], ["Trắng kem", 0xf5f0ea], ["Be cát", 0xd6c6ae], ["Nỉ be kem", 0xe7d9cc], ["Nỉ ghi sáng", 0xc8c6c1], ["Nỉ ghi be", 0xcfc6ba],
     ["Nhựa ốp HD03", 0xe6e9ec], ["Trắng ghi", 0xe2e3e0], ["Hồng phấn", 0xe6c1cb], ["Hồng đất trầm", 0x9c7a80], ["Ghi sáng", 0xb3b7b6], ["Ghi đậm", 0x686c6f],
     ["Xám than", 0x323538], ["Xanh rêu", 0x66735f], ["Xanh than", 0x3b4654], ["Hồng đất", 0xb48a7f],
-    ["Đen tím sẫm", 0x13060a], ["Nâu tím đậm", 0x4a3039], ["Nâu mận", 0x5a3a42], ["Nâu cà phê", 0x4a3426], ["Mahogany", 0x5b2f2a], ["Óc chó đậm", 0x3b2a22],
+    ["Ghi tím than", 0x2f2932], ["Đen tím sẫm", 0x13060a], ["Nâu tím đậm", 0x4a3039], ["Nâu mận", 0x5a3a42], ["Nâu cà phê", 0x4a3426], ["Mahogany", 0x5b2f2a], ["Óc chó đậm", 0x3b2a22],
     ["Đen mờ", 0x1f2022], ["Đồng xước", 0xb8955e]
   ];
 
@@ -530,6 +547,8 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
   M.wSecond = std({ map: grainV, roughness: 0.55 }); // wood carcass / grooves
   M.dMain = std({ roughness: 0.5 });                // smooth flat colour like the wardrobe doors, no wood grain
   M.dSecond = std({ roughness: 0.6 });
+  M.vFrame = std({ roughness: 0.45 });               // arched cabinets: white frame + door face
+  M.vInner = std({ map: grainV, roughness: 0.55 });  // arched cabinets: dark wood lining + shelves
   M.bFrame = std({ map: grainV, roughness: 0.6 });
   M.mirror = new THREE.MeshBasicMaterial({ color: 0xc9d3d8 });
   M.headboard = std({ roughness: 0.95 });
@@ -540,7 +559,7 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
   M.rug = std({ roughness: 1 });
   M.door = std({ roughness: 0.45 });                 // smooth lacquer, dark aubergine-brown (from the photo)
   M.frame = std({ roughness: 0.45, metalness: 0.3 });
-  M.winFrame = std({ color: 0x13060a, roughness: 0.45, metalness: 0.3 }); // window frames: always #13060A, not recoloured by the palette
+  M.winFrame = std({ color: 0x2f2932, roughness: 0.45, metalness: 0.3 }); // window frames: always #2F2932 (door default), not recoloured by the palette
   M.chair = std({ roughness: 0.9 });
   M.acBody = std({ color: 0xf2f2ef, roughness: 0.4 });
   M.glass = new THREE.MeshBasicMaterial({ map: skyTexture() });
@@ -708,38 +727,81 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
   B(CX1 - 0.03, CX1, counterY - 0.08, counterY - 0.03, 0.03, DD - 0.04, M.dMain);    // cleat on the window wall
   B(RX - 0.36, RX - 0.35, counterY - 0.04, counterY - 0.03, 0.03, 0.46, M.lamp);        // warm LED strip lighting the niche
   B(CX0, CX1, counterY - 0.03, counterY, 0, DD, M.dMain);                       // counter top
-  // cabinet facing the dressing table: 520 wide along the left wall, its front slanted from 300 deep at the computer-desk side to 520 deep in the window-wall corner,
-  // so the door (and its mirror) is longer and lands nearer the dressing table's centre;
-  // it sits on the corner counter and the tops around it
-  // 4 tiers, each 300 mm clear: 18 mm shelves at 1.09 / 1.41 / 1.73 m, 25 mm top board ending at 2.055 m
-  const SHX1 = CX1, SHX0 = CX1 - 0.52, SZ0 = 0.3, SZ1 = 0.52, STOP = 2.055; // SZ0 / SZ1: depth at the desk side / window wall 
-  function trap(x0, back, y0, t) { // slanted-front board in plan, its front pulled `back` behind the door line
+  // corner display cabinet on the counter (per sample photo): plan like one corner of a hexagon — two fronts meeting at 120°,
+  // each turned 15° off its wall, so one faces the dressing table and the other faces down the computer desk.
+  // A diagonal partition from the room corner to the front vertex splits it into two triangular bays.
+  // White frame, dark wood lining, warm LED under every shelf; top at 2.2 m (the wardrobe's top-box line)
+  //   dressing-table bay: one door along its front, mirror on the inner face; computer-desk bay: open arch, no door
+  const SHX1 = CX1, SHX0 = CX1 - 0.52, STOP = 2.2, LN = 0.009;  // LN: 9 mm wood lining on the walls
+  const HV = 0.52 / (3 - Math.sqrt(3));                         // front vertex on the diagonal, (410, 410) from the two walls
+  const L = (px, pz) => [RX - pz, px];                          // plan (from left wall, from window wall) -> local (x, z)
+  function poly(pts, y0, t, mat) {                              // flat board from plan points
     const s = new THREE.Shape();
-    s.moveTo(x0, 0); s.lineTo(SHX1, 0); s.lineTo(SHX1, -(SZ1 - back)); s.lineTo(x0, -(SZ0 + (SZ1 - SZ0) * (x0 - SHX0) / (SHX1 - SHX0) - back)); s.closePath();
-    const g = new THREE.ExtrudeGeometry(s, { depth: t, bevelEnabled: false });
-    g.rotateX(-Math.PI / 2);
-    const m = new THREE.Mesh(g, M.dSecond); m.position.y = y0; m.castShadow = m.receiveShadow = true; furn.add(m);
+    pts.forEach(([px, pz], i) => { const [x, z] = L(px, pz); if (i) s.lineTo(x, -z); else s.moveTo(x, -z); });
+    s.closePath(); return plate(s, y0, t, mat);
   }
-  [1.09, 1.41, 1.73].forEach(y => trap(SHX0 + 0.03, 0.04, y - 0.018, 0.018));        // inner shelves
-  trap(SHX0 + 0.01, 0, STOP - 0.025, 0.025);                                          // top
-  B(SHX0 + 0.01, SHX0 + 0.03, counterY, STOP - 0.025, 0, SZ0, M.dSecond);             // side upright (computer-desk side)
-  const gy0 = counterY + 0.005, gy1 = STOP - 0.028, gz0 = SZ1 - 0.02, gz1 = SZ1;
-  // solid door along the slanted front with a mirror on its inner face, hinged in the window-wall corner; shown opened ~108°,
-  // where it lies flat along the window wall with the mirror centred 797 from the left wall
-  const GW = Math.hypot(SHX1 - SHX0, SZ1 - SZ0) - 0.01, gdoor = new THREE.Group();
+  const pull = d => {                                           // footprint corners with both fronts pulled back d
+    const e = 0.52 - d / Math.sin(5 * Math.PI / 12), v = HV - d / Math.sin(Math.PI / 3) / Math.SQRT2;
+    return { D: [e, 0], V: [v, v], C: [0, e] };
+  };
+  // rectangle with a round-topped arch, drawn in the XY plane (elevation)
+  function arch(p, x0, x1, y0, y1) {
+    const r = (x1 - x0) / 2, cy = y1 - r;
+    p.moveTo(x0, y0); p.lineTo(x1, y0); p.lineTo(x1, cy); p.absarc(x0 + r, cy, r, 0, Math.PI, false); p.lineTo(x0, y0);
+    return p;
+  }
+  function panel(shape, z0, t, mat, parent) { // elevation shape extruded t thick from z0 toward +z
+    const m = new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: t, bevelEnabled: false, curveSegments: 32 }), mat);
+    m.position.z = z0; m.castShadow = m.receiveShadow = true; (parent || furn).add(m); return m;
+  }
+  const F = pull(0), P = pull(0.04), O = [0, 0];
+  poly([O, F.D, F.V, F.C], STOP - 0.025, 0.025, M.vFrame);                                  // top
+  poly([O, F.D, F.V, F.C], counterY, 0.005, M.vInner);                                      // wood floor lining on the counter
+  B(SHX0, SHX1 - LN, counterY, STOP - 0.025, 0, LN, M.vInner);                              // wood lining on the left wall
+  B(SHX1 - LN, SHX1, counterY, STOP - 0.025, LN, 0.5, M.vInner);                            // wood lining on the window wall
+  const po = 0.009 / Math.SQRT2, pw = HV - 0.02;                                            // 18 mm diagonal partition
+  poly([[po, -po], [pw + po, pw - po], [pw - po, pw + po], [-po, po]], counterY, STOP - 0.025 - counterY, M.vInner);
+  // dressing-table bay: 4 tiers, shelves topping out at 1.13 / 1.49 / 1.85; LED along the window wall
+  [1.13, 1.49, 1.85].forEach(y => poly([O, P.D, P.V], y - 0.018, 0.018, M.vInner));
+  [1.13, 1.49, 1.85, STOP - 0.007].forEach(y => B(RX - 0.045, RX - 0.03, y - 0.026, y - 0.018, 0.06, 0.4, M.lamp));
+  // computer-desk bay: 3 taller tiers, shelves topping out at 1.25 / 1.72; LED along the left wall
+  [1.25, 1.72].forEach(y => poly([O, P.V, P.C], y - 0.018, 0.018, M.vInner));
+  [1.25, 1.72, STOP - 0.007].forEach(y => B(RX - 0.4, RX - 0.06, y - 0.026, y - 0.018, 0.03, 0.045, M.lamp));
+  // open front toward the computer desk: white face frame with an arched opening, group X runs along the front, +Z out of the cabinet
+  const [cx0, cz0] = L(...F.C), [cx1, cz1] = L(...F.V), LF = Math.hypot(cx1 - cx0, cz1 - cz0), cface = new THREE.Group();
+  cface.position.set(cx0, 0, cz0); cface.rotation.y = Math.atan2(-(cz1 - cz0), cx1 - cx0); furn.add(cface);
+  const face = new THREE.Shape();
+  face.moveTo(0, counterY); face.lineTo(LF, counterY); face.lineTo(LF, STOP); face.lineTo(0, STOP); face.closePath();
+  face.holes.push(arch(new THREE.Path(), 0.05, LF - 0.05, counterY + 0.05, STOP - 0.05));
+  panel(face, -0.02, 0.02, M.vFrame, cface);
+  const gy0 = counterY + 0.005, gy1 = STOP - 0.028, gz1 = 0.52;
+  // door along the dressing-table front, hinged at the window wall (push-to-open, no handle); shown opened ~105°,
+  // where it lies flat along the window wall with the mirror facing the dressing table.
+  // outer face: white leaf with an arched dark-wood inset; inner face: arched 5 mm mirror
+  const GW = LF - 0.01, gdoor = new THREE.Group();
   gdoor.position.set(SHX1, 0, gz1); gdoor.rotation.y = Math.PI / 2; furn.add(gdoor);
-  B(-GW + 0.032, -0.002, gy0, gy1, -(gz1 - gz0), 0, M.dMain, gdoor);                   // door leaf
-  B(-GW + 0.002, -GW + 0.032, gy0, gy1, -(gz1 - gz0), -0.012, M.wSecond, gdoor);         // handleless: 30 mm recessed groove down the free edge, like the wardrobe
-  B(-GW + 0.02, -0.02, gy0 + 0.02, gy1 - 0.02, -(gz1 - gz0) - 0.005, -(gz1 - gz0), M.mirror, gdoor); // 5 mm mirror inside
+  const AF = 0.05, leaf = new THREE.Shape();                                                // AF: white frame width around the arch
+  leaf.moveTo(-GW, gy0); leaf.lineTo(-0.002, gy0); leaf.lineTo(-0.002, gy1); leaf.lineTo(-GW, gy1); leaf.closePath();
+  leaf.holes.push(arch(new THREE.Path(), -GW + AF, -0.002 - AF, gy0 + AF, gy1 - AF));
+  panel(leaf, -0.02, 0.02, M.vFrame, gdoor);                                                // door leaf
+  panel(arch(new THREE.Shape(), -GW + AF, -0.002 - AF, gy0 + AF, gy1 - AF), -0.02, 0.012, M.vInner, gdoor); // arched inset, 8 mm recessed
+  panel(arch(new THREE.Shape(), -GW + 0.02, -0.022, gy0 + 0.02, gy1 - 0.02), -0.025, 0.005, M.mirror, gdoor); // mirror inside
+  // a few books + a vase in the computer-desk bay
+  [0.035, 0.03, 0.04, 0.028].forEach((w, i) => {
+    const z = 0.04 + [0, 0.04, 0.075, 0.12][i];
+    B(RX - 0.4, RX - 0.24, 1.25, 1.25 + 0.2 - i * 0.015, z, z + w, BOOKS[i]);
+  });
+  const vase = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.05, 0.16, 20), M.pillow);
+  vase.position.set(RX - 0.3, 1.72 + 0.08, 0.1); vase.castShadow = true; furn.add(vase);
   // PC tower 380 deep × 190 wide × 447 tall, standing on the oak base under the corner counter against the window wall (20 off it), 70 off the left wall,
   // its front facing the desk (the open side)
   const PCX1 = CX1 - 0.02, PCX0 = PCX1 - 0.38, PCZ0 = 0.07, PCZ1 = PCZ0 + 0.19, PCH = 0.447, PCM = (PCZ0 + PCZ1) / 2;
   B(PCX0, PCX1, 0.03, 0.03 + PCH, PCZ0, PCZ1, M.frame);
   B(PCX0 - 0.004, PCX0, 0.05, 0.03 + PCH - 0.02, PCZ0 + 0.02, PCZ1 - 0.02, M.acBody).castShadow = false; // front panel
   B(PCX0 - 0.008, PCX0 - 0.004, 0.03 + PCH - 0.06, 0.03 + PCH - 0.036, PCM - 0.012, PCM + 0.012, M.frame); // power button
-  [[RX - 0.18, 0.04], [RX - 0.1, 0.03]].forEach(([x, r], i) => {     // cosmetics on the counter
+  [[0.28, 0.04], [0.37, 0.03]].forEach(([z, r], i) => {             // cosmetics in the dressing-table bay
     const b = new THREE.Mesh(new THREE.CylinderGeometry(r, r, 0.12 + i * 0.05, 16), BOOKS[3 + i]);
-    b.position.set(x, counterY + (0.12 + i * 0.05) / 2, 0.15); b.castShadow = true; furn.add(b);
+    b.position.set(RX - 0.1, counterY + (0.12 + i * 0.05) / 2, z); b.castShadow = true; furn.add(b);
   });
 
   // computer desk: 1.28 m long, ends at z = 1.8 m once turned, flush with the bed's edge and clear of the door swing (reaches z = 2.2 m)
@@ -870,11 +932,12 @@ dd { margin: 0; font-family: var(--font-num); font-variant-numeric: tabular-nums
     ["Tủ áo 5×0,5 m · cánh mở không tay nắm", [2.9, 2.4, 2.7]],
     ["Hốc móc treo đồ 0,4 m", [1.3, 1.9, 2.75]],
     ["Mặt góc 0,52 × 0,52 m · tấm gỗ đứng 40 + thanh đỡ tường", [0.5, 0.4, 0.26]],
-    ["Tủ 0,52 × 0,3 m · mặt xéo tới 0,52 m · 4 ô × 0,30 m", [0.2, 1.5, 0.45]],
+    ["Tủ vòm góc lục giác · vách chéo chia 2 ngăn", [0.2, 2.3, 0.2]],
+    ["Mặt hở · quay về bàn máy tính", [0.15, 1.5, 0.55]],
     ["Case máy tính 38 × 19 × 44,7 cm · mở phía bàn máy tính", [0.165, 0.3, 0.45]],
     ["Bàn máy tính 1,28 m", [0.2, 0.82, 1.16]],
     ["Bàn trang điểm 0,89 m · sâu 0,52 m", [1.0, 0.82, 0.32]],
-    ["Cánh xéo mở ~108° · tâm gương cách tường trái 0,8 m", [0.8, 1.75, 0.06]],
+    ["Cánh gương mở ~105° · quay về bàn phấn", [0.73, 1.75, 0.06]],
     ["Kệ thấp 0,5 × 0,47 × 0,4 m · thẳng chân bàn", [1.66, 0.45, 0.3]],
     ["Tủ đầu giường 2 tầng · đẩy vào tủ áo", [3.75, 0.6, 2.1]],
     ["Giường 1,8 × 2,0 m · cao 0,4 m", [2.9, 0.45, 0.9]],
